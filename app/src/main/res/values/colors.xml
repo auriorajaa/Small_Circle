@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Accent Colors -->
+    <color name="accent_orange">#FF9800</color> <!-- Accent color like an orange tone used occasionally -->
+    <color name="accent_red">#F44336</color> <!-- Accent red used for warnings or important actions -->
+
+    <!-- Neutral Colors -->
+    <color name="neutral_black">#FF000000</color> <!-- Black color used for text or icons -->
+    <color name="neutral_white">#FFFFFFFF</color> <!-- White color used for backgrounds or text -->
+    <color name="neutral_grey">#9E9E9E</color> <!-- Medium grey for inactive elements or borders -->
+    <color name="neutral_light_grey">#F5F5F5</color> <!-- Light grey for background and surface -->
+
+    <!-- Secondary Colors -->
+    <color name="secondary_blue">#2196F3</color> <!-- Blue for secondary buttons or links -->
+    <color name="secondary_dark_blue">#1976D2</color> <!-- Darker blue shade for hover or active states -->
+
+    <!-- Text Colors -->
+    <color name="text_primary">#212121</color> <!-- Primary text color (Dark grey/black) -->
+    <color name="text_secondary">#757575</color> <!-- Secondary text color (Grey) -->
+
+    <color name="mtrl_textinput_default_box_stroke_color">#DADADA</color>
+
+</resources>

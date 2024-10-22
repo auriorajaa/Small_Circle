@@ -1,0 +1,49 @@
+# Ignore Gradle files
+*.iml
+.gradle/
+local.properties
+/.idea
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+
+# Ignore build folders
+/build/
+/captures/
+/.externalNativeBuild/
+/.cxx/
+
+# Google Services
+**/google-services.json
+**/googleservices.json
+
+# Miscellaneous
+*.log
+*.apk
+*.ap_
+*.keystore
+
+# Android Studio generated files
+.idea/
+.idea/workspace.xml
+.idea/libraries
+.idea/tasks.xml
+.idea/gradle.xml
+.idea/dictionaries
+.idea/vcs.xml
+
+# Ignore lint/inspection results
+lint/intermediates/
+lint/generated/
+
+# Ignore generated resource files
+app/build/
+app/captures/
+
+# Ignore JetBrains specific files
+*.iml
+.idea/
