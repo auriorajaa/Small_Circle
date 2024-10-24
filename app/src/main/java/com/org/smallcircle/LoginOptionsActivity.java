@@ -83,6 +83,13 @@ public class LoginOptionsActivity extends AppCompatActivity {
             }
         });
 
+        binding.loginWithPhoneBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginOptionsActivity.this, LoginPhoneActivity.class));
+            }
+        });
+
         binding.loginWithGoogleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

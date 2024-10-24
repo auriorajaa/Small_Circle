@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/neutral_white"
+    tools:context=".LoginPhoneActivity">
+
+    <!-- Toolbar Layout -->
+    <RelativeLayout
+        android:id="@+id/toolbar_relative_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/toolbar_back_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_back_gray"
+            android:background="@android:color/transparent"
+            android:contentDescription="Back"
+            android:layout_margin="10.5dp"/>
+    </RelativeLayout>
+
+    <!-- Main content starts here -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="14dp"
+        android:layout_margin="10.5dp"
+        android:layout_below="@id/toolbar_relative_layout">
+
+        <!-- Login Heading -->
+        <TextView
+            android:id="@+id/login_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:fontFamily="@font/poppins_bold"
+            android:textSize="48dp"
+            android:textStyle="bold"
+            android:textColor="@color/neutral_black"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Description Text -->
+        <TextView
+            android:id="@+id/login_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please enter your phone number to receive an OTP for verification."
+            android:textSize="16sp"
+            android:textColor="@color/neutral_grey"
+            android:fontFamily="@font/poppins_light"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Phone Number Input Layout -->
+        <LinearLayout
+            android:id="@+id/phone_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
+
+                <!-- Country Code Picker -->
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/ccp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    app:ccp_defaultNameCode="ID" />
+
+                <!-- Phone Number EditText -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/phone_text_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:boxStrokeColor="@android:color/black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/phone_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Phone Number"
+                        android:inputType="phone"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/poppins_regular" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Send OTP Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/send_otp_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Send OTP"
+                android:fontFamily="@font/poppins_regular"
+                android:textAllCaps="false"
+                android:textColor="@color/neutral_white"
+                android:minHeight="@dimen/medium_button_height"
+                app:cornerRadius="8dp" />
+        </LinearLayout>
+
+        <!-- OTP Input Layout -->
+        <LinearLayout
+            android:id="@+id/otp_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!-- OTP EditText -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/otp_text_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_marginBottom="16dp"
+                app:boxStrokeColor="@android:color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/otp_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter OTP"
+                    android:inputType="number"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/poppins_regular" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Verify OTP Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/verify_otp_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Verify OTP"
+                android:fontFamily="@font/poppins_regular"
+                android:textAllCaps="false"
+                android:textColor="@color/neutral_white"
+                android:minHeight="@dimen/medium_button_height"
+                app:cornerRadius="8dp" />
+
+            <!-- Resend OTP option -->
+            <TextView
+                android:id="@+id/resend_otp_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/resend_otp"
+                android:textSize="12sp"
+                android:textColor="@color/neutral_black"
+                android:fontFamily="@font/poppins_light"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:clickable="true" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

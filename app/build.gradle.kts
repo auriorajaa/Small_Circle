@@ -39,13 +39,19 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+
+    // Firebase Library
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)
     implementation(libs.firebase.crashlytics)
+    implementation("com.google.android.gms:play-services-auth:21.2.0") // Login with google library
+
+    // Code Picker Library
+    implementation("com.hbb20:ccp:2.7.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation("com.google.android.gms:play-services-auth:21.2.0")
 }

@@ -6,4 +6,5 @@
     <string name="content_description_end_icon_password">Password</string>
     <string name="don_t_have_an_account_register_here">Don\'t have an account? <b>Register here</b></string>
     <string name="already_have_an_account_log_in_here">Already have an account? <b>Log in here</b></string>
+    <string name="resend_otp">Didn’t receive the OTP? <b>Resend OTP</b></string>
 </resources>
