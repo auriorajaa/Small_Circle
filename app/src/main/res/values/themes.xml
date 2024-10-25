@@ -3,6 +3,35 @@
     <style name="Base.Theme.SmallCircle" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/neutral_black</item>
+        <item name="colorOnPrimary">@color/neutral_white</item>
+    </style>
+
+    <style name="CustomDatePickerDialog" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <!-- Primary color untuk header dan selected date -->
+        <item name="colorPrimary">@color/neutral_black</item>
+        <item name="colorAccent">@color/neutral_black</item>
+
+        <!-- Warna background -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackground">@color/neutral_white</item>
+        <item name="background">@color/neutral_white</item>
+
+        <!-- Hapus background dim/overlay -->
+        <item name="android:backgroundDimEnabled">false</item>
+
+        <!-- Text colors -->
+        <item name="android:textColorPrimary">@color/neutral_black</item>
+        <item name="android:textColorSecondary">@color/neutral_black</item>
+        <item name="android:textColor">@color/neutral_black</item>
+
+        <!-- Calendar styles -->
+        <item name="materialCalendarStyle">@style/CustomCalendarStyle</item>
+        <item name="materialCalendarFullscreenTheme">@style/CustomCalendarStyle</item>
+    </style>
+
+    <style name="CustomCalendarStyle" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="android:colorBackground">@color/neutral_white</item>
+        <item name="colorSurface">@color/neutral_white</item>
     </style>
 
     <style name="Theme.SmallCircle" parent="Base.Theme.SmallCircle"/>

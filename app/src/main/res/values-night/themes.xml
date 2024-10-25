@@ -3,5 +3,8 @@
     <style name="Base.Theme.SmallCircle" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <item name="colorPrimary">@color/neutral_black</item>
+        <item name="colorOnPrimary">@color/neutral_white</item>
+        <item name="colorPrimaryVariant">@color/neutral_black</item>
+
     </style>
 </resources>

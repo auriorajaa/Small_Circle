@@ -64,8 +64,8 @@ public class LoginOptionsActivity extends AppCompatActivity {
         // Configure Google Sign in
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
-                        .requestEmail()
-                                .build();
+                .requestEmail()
+                .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
@@ -101,8 +101,12 @@ public class LoginOptionsActivity extends AppCompatActivity {
     private void beginGoogleLogin() {
         Log.d(TAG, "beginGoogleLogin: ");
 
-        Intent googleSignInIntent = mGoogleSignInClient.getSignInIntent();
-        googleSignInnARL.launch(googleSignInIntent);
+        // Sign out the previous user
+        mGoogleSignInClient.signOut().addOnCompleteListener(this, task -> {
+            // Now start the sign-in intent
+            Intent googleSignInIntent = mGoogleSignInClient.getSignInIntent();
+            googleSignInnARL.launch(googleSignInIntent);
+        });
     }
 
     private ActivityResultLauncher<Intent> googleSignInnARL = registerForActivityResult(

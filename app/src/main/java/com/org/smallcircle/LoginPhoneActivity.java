@@ -224,8 +224,7 @@ public class LoginPhoneActivity extends AppCompatActivity {
 
                 Utils.toast(LoginPhoneActivity.this, "OTP has been sent to " + phoneNumberWithCode);
 
-                binding.loginDescription.setText("Please enter the verification code sent to " + phoneNumberWithCode);
-
+                binding.loginDescription.setText(String.format("Please enter the verification code sent to %s", phoneNumberWithCode));
             }
         };
     }

@@ -3,6 +3,7 @@ package com.org.smallcircle;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,9 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.Calendar;
+import java.util.Locale;
 
 public class Utils {
 
@@ -52,5 +56,14 @@ public class Utils {
 
     public static long getTimestamp() {
         return System.currentTimeMillis();
+    }
+
+    public static String formatTimestampDate(Long timestamp) {
+        Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
+        calendar.setTimeInMillis(timestamp);
+
+        String date = DateFormat.format("dd/MM/yyyy", calendar).toString();
+
+        return date;
     }
 }
