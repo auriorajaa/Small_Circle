@@ -8,7 +8,7 @@
     android:orientation="horizontal"
     android:gravity="center"
     android:layout_margin="16dp"
-    android:elevation="8dp">
+    android:elevation="10dp">
 
     <TextView
         android:id="@+id/toast_message"
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
-        android:fontFamily="sans-serif"
+        android:fontFamily="@font/poppins_light"
         android:gravity="center"
         android:maxWidth="280dp"
         android:lineSpacingExtra="2dp" />

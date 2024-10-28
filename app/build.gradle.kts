@@ -57,6 +57,15 @@ dependencies {
     // Makeramen
     implementation("com.makeramen:roundedimageview:2.3.0")
 
+    // Material Design
+    implementation("com.google.android.material:material:1.11.0")
+
+    // Lottie Animation
+    implementation("com.airbnb.android:lottie:6.3.0")
+
+    // Shimmer Effect
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

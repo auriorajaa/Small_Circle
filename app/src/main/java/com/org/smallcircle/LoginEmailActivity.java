@@ -62,6 +62,13 @@ public class LoginEmailActivity extends AppCompatActivity {
         // Setup real-time validation
         setupEmailPasswordValidation();
 
+        binding.forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginEmailActivity.this, ForgotPasswordActivity.class));
+            }
+        });
+
         // Login button is pressed
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,9 +86,10 @@ public class LoginEmailActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Clear error when user types a valid email
                 if (Patterns.EMAIL_ADDRESS.matcher(s).matches()) {
-                    binding.emailEditText.setError(null);
+                    Utils.setErrorState(binding.emailTextInputLayout, null); // Clear error if valid
+                } else {
+                    Utils.setErrorState(binding.emailTextInputLayout, "Invalid Email Address!"); // Show error if invalid
                 }
             }
 
@@ -96,9 +104,10 @@ public class LoginEmailActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Clear error when password is not empty
                 if (s.length() > 0) {
-                    binding.passwordEditText.setError(null);
+                    Utils.setErrorState(binding.passwordTextInputLayout, null); // Clear error if password not empty
+                } else {
+                    Utils.setErrorState(binding.passwordTextInputLayout, "Please Enter a Password!"); // Show error if empty
                 }
             }
 
@@ -108,25 +117,31 @@ public class LoginEmailActivity extends AppCompatActivity {
     }
 
     private void validateData() {
-        // Get input data
         email = binding.emailEditText.getText().toString().trim();
         password = binding.passwordEditText.getText().toString();
 
-        Log.d(TAG, "validateData: email: " + email);
-        Log.d(TAG, "validateData: password: " + password);
+        boolean isValid = true;
 
         // Validate email
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            binding.emailEditText.setError("Invalid Email Address!");
+            Utils.setErrorState(binding.emailTextInputLayout, "Invalid Email Address!");
             binding.emailEditText.requestFocus();
+            isValid = false;
+        } else {
+            Utils.setErrorState(binding.emailTextInputLayout, null);
         }
+
         // Validate password
-        else if (password.isEmpty()) {
-            binding.passwordEditText.setError("Please Enter a Password!");
+        if (password.isEmpty()) {
+            Utils.setErrorState(binding.passwordTextInputLayout, "Please Enter a Password!");
             binding.passwordEditText.requestFocus();
+            isValid = false;
+        } else {
+            Utils.setErrorState(binding.passwordTextInputLayout, null);
         }
-        // If valid, proceed to login
-        else {
+
+        // Proceed to login if valid
+        if (isValid) {
             loginUser();
         }
     }

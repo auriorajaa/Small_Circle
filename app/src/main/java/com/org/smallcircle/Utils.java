@@ -34,7 +34,7 @@ public class Utils {
             toast.setView(layout);
 
             // Position the toast at the bottom with a offset from bottom
-            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 64);
+            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 150);
 
             toast.show();
         } catch (Exception e) {

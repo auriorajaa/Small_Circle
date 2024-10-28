@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -307,7 +308,8 @@ public class ProfileEditActivity extends AppCompatActivity {
     }
 
     private void imagePickDialog() {
-        PopupMenu popupMenu = new PopupMenu(this, binding.profilePictureContainer);
+        Context wrapper = new ContextThemeWrapper(this, R.style.PopupMenuWhiteBackground);
+        PopupMenu popupMenu = new PopupMenu(wrapper, binding.profilePictureContainer);
 
         popupMenu.getMenu().add(Menu.NONE, 1, 1, "Camera");
         popupMenu.getMenu().add(Menu.NONE, 2, 2, "Gallery");
@@ -317,7 +319,6 @@ public class ProfileEditActivity extends AppCompatActivity {
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-
                 int itemId = item.getItemId();
 
                 if (itemId == 1) {

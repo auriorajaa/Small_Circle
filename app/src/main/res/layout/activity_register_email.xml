@@ -11,18 +11,22 @@
     <!-- Toolbar Layout -->
     <RelativeLayout
         android:id="@+id/toolbar_relative_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/medium_toolbar_height"
+        android:background="@color/neutral_white"
+        android:elevation="4dp">
 
+        <!-- Back Button -->
         <ImageButton
             android:id="@+id/toolbar_back_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
             android:src="@drawable/ic_back_gray"
             android:background="@android:color/transparent"
             android:contentDescription="Back"
-            android:layout_margin="10.5dp"/>
+            android:layout_alignParentStart="true"/>
     </RelativeLayout>
+
 
     <!-- Main content starts here -->
     <LinearLayout
@@ -40,7 +44,7 @@
             android:layout_height="wrap_content"
             android:text="Register"
             android:fontFamily="@font/poppins_bold"
-            android:textSize="48dp"
+            android:textSize="42dp"
             android:textStyle="bold"
             android:textColor="@color/neutral_black"
             android:layout_marginBottom="8dp"/>
@@ -51,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Create your account to start using the app and explore more features."
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textColor="@color/neutral_grey"
             android:fontFamily="@font/poppins_light"
             android:layout_marginBottom="24dp"/>

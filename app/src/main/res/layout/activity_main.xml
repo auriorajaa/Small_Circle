@@ -10,26 +10,24 @@
     tools:context=".MainActivity">
 
     <RelativeLayout
-            android:id="@+id/toolbar_relative_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/medium_toolbar_height">
+        android:id="@+id/toolbar_relative_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/medium_toolbar_height"
+        android:background="@color/neutral_white"
+        android:elevation="4dp">
 
         <TextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:textColor="@color/neutral_black"
-                android:text="Home"/>
-
-        <View
-                android:layout_alignParentBottom="true"
-                android:layout_width="match_parent"
-                android:layout_height="1.5dp"
-                android:background="@color/neutral_grey"/>
-
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/neutral_black"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Home"
+            android:textSize="16sp" />
     </RelativeLayout>
+
+
 
     <FrameLayout
             android:id="@+id/fragment_frame_layout"
@@ -48,7 +46,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="75dp"
             android:layout_alignParentBottom="true"
             app:menu="@menu/menu_bottom"
             android:background="@color/neutral_black"
@@ -66,7 +64,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="58dp"
+            android:layout_marginBottom="48dp"
+            android:elevation="4dp"
             android:src="@drawable/ic_add_white"
             android:backgroundTint="@color/neutral_white"
             app:tint="@color/neutral_black"/>

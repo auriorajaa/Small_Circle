@@ -34,5 +34,12 @@
         <item name="colorSurface">@color/neutral_white</item>
     </style>
 
+    <!-- Tema kustom untuk PopupMenu -->
+    <style name="PopupMenuWhiteBackground" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:colorBackground">@color/neutral_white</item>
+        <item name="android:popupBackground">@color/neutral_white</item>
+    </style>
+
+
     <style name="Theme.SmallCircle" parent="Base.Theme.SmallCircle"/>
 </resources>
