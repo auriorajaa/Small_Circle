@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Please enter your phone number to receive an OTP for verification."
-            android:textSize="14sp"
+            android:textSize="13sp"
             android:textColor="@color/neutral_grey"
             android:fontFamily="@font/poppins_light"
             android:layout_marginBottom="24dp"/>
@@ -81,6 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
                     app:ccp_showNameCode="false"
+                    app:ccp_textSize="14sp"
                     app:ccp_defaultNameCode="ID" />
 
                 <!-- Phone Number EditText -->
@@ -101,7 +102,7 @@
                         android:layout_height="wrap_content"
                         android:hint="Phone Number"
                         android:inputType="phone"
-                        android:textSize="15sp"
+                        android:textSize="13sp"
                         android:fontFamily="@font/poppins_regular" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>

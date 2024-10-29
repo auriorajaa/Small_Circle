@@ -1,6 +1,7 @@
 package com.org.smallcircle;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -25,6 +26,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,7 +46,7 @@ public class MyProfileFragment extends Fragment {
 
     private static final String TAG = "ACCOUNT_TAG";
 
-    int color = Color.BLUE;
+    private ProgressDialog progressDialog;
 
     private String profileImageUrl = "";
 
@@ -67,6 +70,10 @@ public class MyProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        progressDialog = new ProgressDialog(mContext);
+        progressDialog.setTitle("Please wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
 
         // Initialize loading spinner
         binding.loadingSpinner.setVisibility(View.VISIBLE);
@@ -104,6 +111,20 @@ public class MyProfileFragment extends Fragment {
                 startActivity(new Intent(mContext, ChangePasswordActivity.class));
             }
         });
+
+        binding.verifyAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verifyAccount();
+            }
+        });
+
+        binding.deleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(mContext, DeleteAccountActivity.class));
+            }
+        });
     }
 
     private void loadMyInfo() {
@@ -126,7 +147,17 @@ public class MyProfileFragment extends Fragment {
 
                         // Set data to UI elements
                         String phone = phoneCode + phoneNumber;
-                        String formattedDate = Utils.formatTimestampDate(Long.parseLong(timestamp));
+
+                        // Check if timestamp is not null and is a valid long
+                        long parsedTimestamp = 0; // Default value
+                        if (timestamp != null && !timestamp.equals("null")) {
+                            try {
+                                parsedTimestamp = Long.parseLong(timestamp);
+                            } catch (NumberFormatException e) {
+                                Log.e(TAG, "Invalid timestamp format", e);
+                            }
+                        }
+                        String formattedDate = Utils.formatTimestampDate(parsedTimestamp);
 
                         // Menentukan panjang maksimal email
                         int maxEmailLength = 25; // Ganti dengan panjang yang diinginkan
@@ -147,15 +178,21 @@ public class MyProfileFragment extends Fragment {
                             boolean isVerified = firebaseAuth.getCurrentUser().isEmailVerified();
 
                             if (isVerified) {
+                                binding.verifyAccount.setVisibility(View.GONE);
+
                                 binding.accountStatusText.setText("Verified");
                                 binding.accountStatusText.setTextColor(Color.parseColor("#01a4ec"));
                                 binding.verifiedIcon.setVisibility(View.VISIBLE);
                             } else {
+                                binding.verifyAccount.setVisibility(View.VISIBLE);
+
                                 binding.accountStatusText.setText("Not Verified");
                                 binding.accountStatusText.setTextColor(Color.RED);
                                 binding.verifiedIcon.setVisibility(View.GONE);
                             }
                         } else {
+                            binding.verifyAccount.setVisibility(View.GONE);
+
                             binding.accountStatusText.setText("Verified");
                             binding.accountStatusText.setTextColor(Color.parseColor("#01a4ec"));
                             binding.verifiedIcon.setVisibility(View.VISIBLE);
@@ -218,6 +255,33 @@ public class MyProfileFragment extends Fragment {
         // Menampilkan dialog dalam mode full screen
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.show();
+    }
+
+    private void verifyAccount() {
+        Log.d(TAG, "verifyAccount: ");
+
+        progressDialog.setMessage("Sending verification link to your email");
+        progressDialog.show();
+
+        firebaseAuth.getCurrentUser().sendEmailVerification()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG, "onSuccess: Sent");
+
+                        progressDialog.dismiss();
+                        Utils.toast(mContext, "Verification link has been sent to your email");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "onFailure: ", e);
+
+                        progressDialog.dismiss();
+                        Utils.toast(mContext, e.getMessage());
+                    }
+                });
     }
 
 }

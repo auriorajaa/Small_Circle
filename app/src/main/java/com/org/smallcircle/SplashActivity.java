@@ -14,9 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.org.smallcircle.databinding.ActivitySplashBinding;
 
 public class SplashActivity extends AppCompatActivity {
 
+    private ActivitySplashBinding binding;
     private ShimmerFrameLayout shimmerLayout;
     private TextView splashText;
     private LottieAnimationView backgroundAnimation;
@@ -25,7 +27,8 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_splash);
+        binding = ActivitySplashBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         // Initialize views
         shimmerLayout = findViewById(R.id.shimmerLayout);
@@ -59,6 +62,6 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             finish();
-        }, 3500); // 3.5 seconds delay
+        }, 3000); // 3 seconds delay
     }
 }

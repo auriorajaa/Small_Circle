@@ -7,4 +7,6 @@
     <string name="don_t_have_an_account_register_here">Don\'t have an account? <b>Register here</b></string>
     <string name="already_have_an_account_log_in_here">Already have an account? <b>Log in here</b></string>
     <string name="resend_otp">Didn’t receive the OTP? <b>Resend OTP</b></string>
+    <string name="delete_account_msg"><font color="#F44336"><b>Warning:</b></font> Deleting your account is a permanent action. All your data, including your profile information, saved preferences, and activity history, will be permanently removed. This action cannot be undone. If you are sure you want to proceed, please confirm by clicking the delete account button below.</string>
+    <string name="forgot_password"><b>Forgot Password?</b></string>
 </resources>
