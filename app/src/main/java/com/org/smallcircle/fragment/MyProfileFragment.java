@@ -1,8 +1,10 @@
-package com.org.smallcircle;
+package com.org.smallcircle.fragment;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -34,6 +36,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.org.smallcircle.activity.ChangePasswordActivity;
+import com.org.smallcircle.activity.DeleteAccountActivity;
+import com.org.smallcircle.activity.MainActivity;
+import com.org.smallcircle.activity.ProfileEditActivity;
+import com.org.smallcircle.R;
+import com.org.smallcircle.utils.Utils;
 import com.org.smallcircle.databinding.FragmentMyProfileBinding;
 
 public class MyProfileFragment extends Fragment {
@@ -115,7 +123,7 @@ public class MyProfileFragment extends Fragment {
         binding.verifyAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                verifyAccount();
+                showVerificationDialog();
             }
         });
 
@@ -257,6 +265,27 @@ public class MyProfileFragment extends Fragment {
         dialog.show();
     }
 
+    private void showVerificationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("Verify Account")
+                .setMessage("A verification link will be sent to your email. Do you want to proceed?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        verifyAccount(); // Proceed with sending the verification email
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss(); // Dismiss the dialog
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show(); // Show the dialog
+    }
+
     private void verifyAccount() {
         Log.d(TAG, "verifyAccount: ");
 
@@ -283,5 +312,4 @@ public class MyProfileFragment extends Fragment {
                     }
                 });
     }
-
 }

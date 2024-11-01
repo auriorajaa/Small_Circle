@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/neutral_white"
-    tools:context=".RegisterEmailActivity">
+    tools:context=".activity.RegisterEmailActivity">
 
     <!-- Toolbar Layout -->
     <RelativeLayout
@@ -54,9 +54,8 @@
             android:id="@+id/register_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create your account to start using the app and explore more features."
-            android:textSize="13sp"
-            android:textColor="@color/neutral_grey"
+            android:text="Create a new account to access all the app's features, save your progress, and enjoy a personalized experience."
+            android:textSize="@dimen/dimen_small_text_size"
             android:fontFamily="@font/poppins_light"
             android:layout_marginBottom="24dp"/>
 
@@ -78,7 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="10dp"
-                android:textSize="13sp"
+                android:textSize="@dimen/dimen_small_text_size"
                 android:fontFamily="@font/poppins_regular"
                 android:drawableStart="@drawable/ic_email_black"
                 android:hint="@string/content_description_end_icon_email"
@@ -104,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="10dp"
-                android:textSize="13sp"
+                android:textSize="@dimen/dimen_small_text_size"
                 android:fontFamily="@font/poppins_regular"
                 android:drawableStart="@drawable/ic_lock_black"
                 android:hint="@string/content_description_end_icon_password"
@@ -130,7 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="10dp"
-                android:textSize="13sp"
+                android:textSize="@dimen/dimen_small_text_size"
                 android:fontFamily="@font/poppins_regular"
                 android:drawableStart="@drawable/ic_lock_black"
                 android:hint="Confirm Password"
@@ -142,6 +141,7 @@
             android:id="@+id/register_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/dimen_small_text_size"
             android:text="Register"
             android:fontFamily="@font/poppins_regular"
             android:textAllCaps="false"
@@ -155,7 +155,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/already_have_an_account_log_in_here"
-            android:textSize="12sp"
+            android:textSize="@dimen/dimen_small_text_size"
             android:fontFamily="@font/poppins_light"
             android:textColor="@color/neutral_black"
             android:layout_gravity="center"

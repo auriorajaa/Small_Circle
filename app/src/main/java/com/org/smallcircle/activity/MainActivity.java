@@ -1,20 +1,25 @@
-package com.org.smallcircle;
+package com.org.smallcircle.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.MenuItem;
-import androidx.activity.EdgeToEdge;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.org.smallcircle.R;
+import com.org.smallcircle.utils.Utils;
 import com.org.smallcircle.databinding.ActivityMainBinding;
+import com.org.smallcircle.fragment.ChatFragment;
+import com.org.smallcircle.fragment.HomeFragment;
+import com.org.smallcircle.fragment.MyProductFragment;
+import com.org.smallcircle.fragment.MyProfileFragment;
+
 import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
@@ -91,6 +96,13 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     return false;
                 }
+            }
+        });
+
+        binding.createAdsFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AddProductActivity.class));
             }
         });
     }

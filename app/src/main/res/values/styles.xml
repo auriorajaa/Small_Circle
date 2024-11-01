@@ -5,4 +5,11 @@
         <item name="fontFamily">@font/poppins_regular</item>
         <item name="android:textSize">12sp</item>
     </style>
+
+    <!-- Define a round shape style for the image view -->
+    <style name="RoundedImageStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8%</item>
+    </style>
+
 </resources>

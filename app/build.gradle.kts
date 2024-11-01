@@ -66,6 +66,9 @@ dependencies {
     // Shimmer Effect
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 
+    implementation ("androidx.browser:browser:1.5.0")
+    implementation ("com.google.android.play:integrity:1.1.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

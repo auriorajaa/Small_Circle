@@ -8,6 +8,7 @@
     <!-- Neutral Colors -->
     <color name="neutral_black">#FF000000</color> <!-- Black color used for text or icons -->
     <color name="neutral_white">#FFFFFFFF</color> <!-- White color used for backgrounds or text -->
+    <color name="new_white">#f9f9f9</color>
     <color name="neutral_grey">#9E9E9E</color> <!-- Medium grey for inactive elements or borders -->
     <color name="neutral_light_grey">#F5F5F5</color> <!-- Light grey for background and surface -->
 

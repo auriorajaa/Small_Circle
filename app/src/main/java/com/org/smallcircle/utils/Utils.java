@@ -1,8 +1,6 @@
-package com.org.smallcircle;
+package com.org.smallcircle.utils;
 
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -10,13 +8,52 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.org.smallcircle.R;
 
 import java.util.Calendar;
 import java.util.Locale;
 
 public class Utils {
+
+    public static final String PRODUCT_STATUS_AVAILABLE = "AVAILABLE";
+    public static final String PRODUCT_STATUS_SOLD = "SOLD";
+
+    public static final String[] categories = {
+            "Electronics",
+            "Mobiles",
+            "Vehicles",
+            "Property",
+            "Fashion & Beauty",
+            "Home & Furniture",
+            "Books, Sports & Hobbies",
+            "Toys & Baby Products",
+            "Groceries",
+            "Pets & Pet Care",
+            "Health & Wellness",
+            "Jobs",
+            "Services",
+            "Education & Training",
+            "Agriculture & Gardening",
+            "Machinery & Equipment",
+            "Handmade & Crafts",
+            "Collectibles & Antiques",
+            "Industrial Supplies",
+            "Events & Tickets",
+            "Others"
+    };
+
+    public static final String[] condition = {
+            "New",
+            "Like New",
+            "Used - Excellent",
+            "Used - Good",
+            "Used - Fair",
+            "Refurbished",
+            "Reconditioned",
+            "Open Box",
+            "For Parts or Not Working"
+    };
 
     public static void toast(Context context, String message) {
         try {

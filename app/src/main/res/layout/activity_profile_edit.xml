@@ -32,7 +32,7 @@
             android:textColor="@color/neutral_black"
             android:fontFamily="@font/poppins_regular"
             android:text="Profile Edit"
-            android:textSize="16sp" />
+            android:textSize="@dimen/dimen_small_text_size" />
     </RelativeLayout>
 
     <!-- Scrollable Content -->
@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tap to change profile picture"
-                android:textSize="12sp"
+                android:textSize="@dimen/dimen_small_text_size"
                 android:textColor="@color/neutral_grey"
                 android:fontFamily="@font/poppins_light"
                 android:layout_marginTop="8dp"
@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:drawablePadding="10dp"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/dimen_small_text_size"
                     android:fontFamily="@font/poppins_regular"
                     android:drawableStart="@drawable/ic_person_black"
                     android:hint="Full Name" />
@@ -135,7 +135,7 @@
                     android:layout_width="match_parent"
                     android:drawablePadding="10dp"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/dimen_small_text_size"
                     android:fontFamily="@font/poppins_regular"
                     android:drawableStart="@drawable/ic_email_black"
                     android:hint="@string/content_description_end_icon_email"
@@ -161,7 +161,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawablePadding="10dp"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/dimen_small_text_size"
                     android:drawableStart="@drawable/ic_calendar"
                     android:inputType="none"
                     android:fontFamily="@font/poppins_regular"
@@ -183,6 +183,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
                     app:ccp_showNameCode="false"
+                    app:ccp_textSize="14sp"
                     app:ccp_defaultNameCode="ID"/>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -202,7 +203,7 @@
                         android:layout_height="wrap_content"
                         android:hint="Phone Number"
                         android:inputType="phone"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/dimen_small_text_size"
                         android:fontFamily="@font/poppins_regular"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -213,6 +214,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/medium_button_height"
+                android:textSize="@dimen/dimen_small_text_size"
                 android:text="Update Profile"
                 android:backgroundTint="@color/neutral_black"
                 android:textColor="@color/neutral_white"

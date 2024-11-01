@@ -1,4 +1,4 @@
-package com.org.smallcircle;
+package com.org.smallcircle.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -8,12 +8,8 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,6 +21,7 @@ import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.org.smallcircle.utils.Utils;
 import com.org.smallcircle.databinding.ActivityLoginPhoneBinding;
 
 import java.util.HashMap;

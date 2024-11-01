@@ -1,4 +1,4 @@
-package com.org.smallcircle;
+package com.org.smallcircle.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.org.smallcircle.utils.Utils;
 import com.org.smallcircle.databinding.ActivityLoginEmailBinding;
 
 public class LoginEmailActivity extends AppCompatActivity {

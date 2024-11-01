@@ -1,4 +1,4 @@
-package com.org.smallcircle;
+package com.org.smallcircle.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -9,12 +9,8 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -22,10 +18,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.org.smallcircle.utils.Utils;
 import com.org.smallcircle.databinding.ActivityRegisterEmailBinding;
 
 import java.util.HashMap;
-import java.util.Objects;
 
 public class RegisterEmailActivity extends AppCompatActivity {
 

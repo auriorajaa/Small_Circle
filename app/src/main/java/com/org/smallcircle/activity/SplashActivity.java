@@ -1,12 +1,10 @@
-package com.org.smallcircle;
+package com.org.smallcircle.activity;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.TextView;
 
@@ -14,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.org.smallcircle.R;
 import com.org.smallcircle.databinding.ActivitySplashBinding;
 
 public class SplashActivity extends AppCompatActivity {

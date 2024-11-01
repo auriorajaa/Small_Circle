@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/neutral_white"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
     <RelativeLayout
         android:id="@+id/toolbar_relative_layout"
@@ -24,7 +24,7 @@
             android:textColor="@color/neutral_black"
             android:fontFamily="@font/poppins_regular"
             android:text="Home"
-            android:textSize="16sp" />
+            android:textSize="@dimen/dimen_small_text_size" />
     </RelativeLayout>
 
 
@@ -60,6 +60,7 @@
             app:itemTextAppearanceInactive="@style/CustomBottomNavigationView"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/createAdsFloatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

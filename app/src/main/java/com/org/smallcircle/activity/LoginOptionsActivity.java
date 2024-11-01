@@ -1,4 +1,4 @@
-package com.org.smallcircle;
+package com.org.smallcircle.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -7,16 +7,13 @@ import android.os.Bundle;
 
 import android.util.Log;
 import android.view.View;
-import androidx.activity.EdgeToEdge;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -32,6 +29,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.org.smallcircle.R;
+import com.org.smallcircle.utils.Utils;
 import com.org.smallcircle.databinding.ActivityLoginOptionsBinding;
 
 import java.util.HashMap;

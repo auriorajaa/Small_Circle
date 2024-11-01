@@ -1,4 +1,4 @@
-package com.org.smallcircle;
+package com.org.smallcircle.activity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -7,21 +7,15 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.ProgressBar;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
+import com.org.smallcircle.utils.Utils;
 import com.org.smallcircle.databinding.ActivityForgotPasswordBinding;
-import com.org.smallcircle.databinding.ActivityLoginPhoneBinding;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 

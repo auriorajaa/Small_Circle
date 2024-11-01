@@ -34,12 +34,25 @@
         <item name="colorSurface">@color/neutral_white</item>
     </style>
 
-    <!-- Tema kustom untuk PopupMenu -->
+    <style name="WhitePopupMenu" parent="@style/Widget.AppCompat.PopupMenu">
+        <item name="android:background">@color/neutral_white</item>
+    </style>
+
+    <style name="WhiteDropdownMenu" parent="Widget.AppCompat.DropDownItem.Spinner">
+        <item name="android:background">@color/neutral_white</item>
+    </style>
+
+    <!-- Theme to set white background for image selection dialogs -->
+    <style name="ImagePickerDialogTheme" parent="Theme.MaterialComponents.DayNight.BottomSheetDialog">
+        <item name="colorPrimary">@color/neutral_white</item>
+        <item name="colorPrimaryVariant">@color/neutral_white</item>
+        <item name="colorOnPrimary">@color/neutral_black</item>
+    </style>
+
     <style name="PopupMenuWhiteBackground" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:colorBackground">@color/neutral_white</item>
         <item name="android:popupBackground">@color/neutral_white</item>
     </style>
-
 
     <style name="Theme.SmallCircle" parent="Base.Theme.SmallCircle"/>
 </resources>

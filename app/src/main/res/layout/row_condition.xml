@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Condition"
+    android:textSize="@dimen/dimen_small_text_size"
+    android:fontFamily="@font/poppins_regular"
+    android:padding="16dp"
+    style="?attr/textAppearanceSubtitle1"
+    android:ellipsize="end"
+    android:maxLines="1"
+    android:background="@color/neutral_white"
+    android:drawableEnd="@drawable/ic_next_gray">
+
+</TextView>

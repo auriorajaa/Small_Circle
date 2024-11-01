@@ -77,7 +77,7 @@
                         android:fontFamily="@font/poppins_semi_bold"
                         android:text="Not Verified"
                         android:textColor="@color/accent_red"
-                        android:textSize="12sp"/>
+                        android:textSize="@dimen/dimen_small_text_size"/>
 
                     <!-- Verified Icon -->
                     <ImageView
@@ -100,130 +100,148 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_light"
                     android:text="Member since: dd/MM/yyyy"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/dimen_small_text_size"
                     android:layout_marginTop="4dp"/>
             </LinearLayout>
         </LinearLayout>
 
         <!-- Info Container -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="14dp"
+            app:cardBackgroundColor="@color/new_white"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <!-- Email Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Email"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="@dimen/dimen_small_text_size"/>
+
+                    <TextView
+                        android:id="@+id/emailText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="email@example.com"
+                        android:maxLines="1"
+                        android:gravity="end"
+                        android:layout_gravity="end"
+                        android:textSize="@dimen/dimen_small_text_size"
+                        android:maxWidth="200dp"
+                        android:ellipsize="end"
+                        android:singleLine="true"/>
+                </LinearLayout>
+
+                <!-- Phone Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Phone"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="@dimen/dimen_small_text_size"/>
+
+                    <TextView
+                        android:id="@+id/phoneText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="+62 123 456 789"
+                        android:gravity="end"
+                        android:textSize="@dimen/dimen_small_text_size"/>
+                </LinearLayout>
+
+                <!-- Date of Birth Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Date of Birth"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="@dimen/dimen_small_text_size"/>
+
+                    <TextView
+                        android:id="@+id/dateOfBirthText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="dd/MM/yyyy"
+                        android:gravity="end"
+                        android:textSize="@dimen/dimen_small_text_size"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <!-- Utils -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="14dp">
+            android:paddingHorizontal="14dp"
+            android:orientation="horizontal">
 
-            <!-- Email Row -->
-            <LinearLayout
+            <TextView
+                android:id="@+id/verifyAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Verify Account"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/secondary_blue"
+                android:textSize="11sp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/deleteAccount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Email"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:id="@+id/emailText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_light"
-                    android:text="email@example.com"
-                    android:maxLines="1"
-                    android:gravity="end"
-                    android:layout_gravity="end"
-                    android:textSize="12sp"
-                    android:maxWidth="200dp"
-                    android:ellipsize="end"
-                    android:singleLine="true"/>
-            </LinearLayout>
-
-            <!-- Phone Row -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Phone"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:id="@+id/phoneText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_light"
-                    android:text="+62 123 456 789"
-                    android:gravity="end"
-                    android:textSize="12sp"/>
-            </LinearLayout>
-
-            <!-- Date of Birth Row -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Date of Birth"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:id="@+id/dateOfBirthText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_light"
-                    android:text="dd/MM/yyyy"
-                    android:gravity="end"
-                    android:textSize="12sp"/>
-            </LinearLayout>
-
-            <!-- Utils -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/verifyAccount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Verify Account"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textColor="@color/secondary_blue"
-                    android:textSize="14sp"
-                    android:visibility="gone"/>
-
-                <TextView
-                    android:id="@+id/deleteAccount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textColor="@color/accent_red"
-                    android:text="Delete Account"
-                    android:gravity="end"
-                    android:textSize="14sp"/>
-            </LinearLayout>
-
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/accent_red"
+                android:text="Delete Account"
+                android:gravity="end"
+                android:textSize="11sp"/>
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="24dp"
+            android:layout_marginHorizontal="14dp"
+            android:background="@color/neutral_light_grey"/>
 
         <!-- Buttons Container -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="14dp">
+            android:paddingHorizontal="14dp">
 
             <!-- Edit Profile Button -->
             <com.google.android.material.button.MaterialButton
@@ -236,6 +254,7 @@
                 android:backgroundTint="@color/neutral_black"
                 android:textColor="@color/neutral_white"
                 android:fontFamily="@font/poppins_regular"
+                android:textSize="@dimen/dimen_small_text_size"
                 app:cornerRadius="8dp"/>
 
             <!-- Change Password Button -->
@@ -250,6 +269,7 @@
                 android:textColor="@color/neutral_black"
                 android:fontFamily="@font/poppins_regular"
                 app:strokeColor="@color/neutral_grey"
+                android:textSize="@dimen/dimen_small_text_size"
                 app:strokeWidth="0.5dp"
                 app:cornerRadius="8dp"/>
 
@@ -260,7 +280,7 @@
                 android:layout_height="wrap_content"
                 android:text="Logout"
                 android:textColor="@color/accent_red"
-                android:textSize="14sp"
+                android:textSize="@dimen/dimen_small_text_size"
                 android:textStyle="bold"
                 android:fontFamily="@font/poppins_bold"
                 android:layout_gravity="center"

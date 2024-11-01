@@ -22,34 +22,37 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".DeleteAccountActivity"
+            android:name=".activity.AddProductActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.DeleteAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".ChangePasswordActivity"
+            android:name=".activity.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".activity.ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfileEditActivity"
+            android:name=".activity.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginPhoneActivity"
+            android:name=".activity.ProfileEditActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterEmailActivity"
+            android:name=".activity.LoginPhoneActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginEmailActivity"
+            android:name=".activity.RegisterEmailActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginOptionsActivity"
+            android:name=".activity.LoginEmailActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".activity.LoginOptionsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

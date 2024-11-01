@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/neutral_white"
-    tools:context=".LoginOptionsActivity">
+    tools:context=".activity.LoginOptionsActivity">
 
     <!-- Toolbar Layout -->
     <RelativeLayout
@@ -48,9 +48,8 @@
         android:id="@+id/app_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Connect, share, and discover within your small circle. Join our community-driven marketplace today!"
-        android:textSize="13sp"
-        android:textColor="@android:color/darker_gray"
+        android:text="Connect with others, share your interests, and discover unique items and opportunities within a trusted, close community."
+        android:textSize="@dimen/dimen_small_text_size"
         app:layout_constraintStart_toStartOf="@id/app_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_name"
@@ -73,6 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Continue with Google"
+            android:textSize="@dimen/dimen_small_text_size"
             app:icon="@drawable/ic_google"
             android:minHeight="@dimen/medium_button_height"
             android:layout_marginBottom="12dp"
@@ -87,6 +87,7 @@
             android:layout_height="wrap_content"
             android:text="Continue with Phone"
             app:icon="@drawable/ic_call_white"
+            android:textSize="@dimen/dimen_small_text_size"
             android:minHeight="@dimen/medium_button_height"
             android:layout_marginBottom="12dp"
             android:backgroundTint="@color/neutral_black"
@@ -100,6 +101,7 @@
             android:layout_height="wrap_content"
             android:text="Continue with Email"
             app:icon="@drawable/ic_email_white"
+            android:textSize="@dimen/dimen_small_text_size"
             android:minHeight="@dimen/medium_button_height"
             android:layout_marginBottom="12dp"
             android:backgroundTint="@color/neutral_black"

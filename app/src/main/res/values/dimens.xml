@@ -2,4 +2,5 @@
 <resources>
     <dimen name="medium_toolbar_height">55dp</dimen>
     <dimen name="medium_button_height">55dp</dimen>
+    <dimen name="dimen_small_text_size">12.5sp</dimen>
 </resources>

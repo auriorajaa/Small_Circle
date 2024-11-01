@@ -1,16 +1,14 @@
-package com.org.smallcircle;
+package com.org.smallcircle.activity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -18,6 +16,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.org.smallcircle.utils.Utils;
 import com.org.smallcircle.databinding.ActivityDeleteAccountBinding;
 
 public class DeleteAccountActivity extends AppCompatActivity {
@@ -37,7 +38,6 @@ public class DeleteAccountActivity extends AppCompatActivity {
         // Setting up the default uncaught exception handler
         Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
             Log.e(TAG, "Uncaught exception: ", throwable);
-            // Optionally, restart the app or finish the current activity
             finish();
         });
 
@@ -49,7 +49,17 @@ public class DeleteAccountActivity extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
 
         binding.toolbarBackButton.setOnClickListener(v -> onBackPressed());
-        binding.deleteAccountButton.setOnClickListener(v -> deleteAccount());
+        binding.deleteAccountButton.setOnClickListener(v -> showDeleteConfirmationDialog());
+    }
+
+    private void showDeleteConfirmationDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Confirm Deletion")
+                .setMessage("Are you sure you want to delete your account? This action cannot be undone.")
+                .setPositiveButton("Delete", (dialog, which) -> deleteAccount())
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .setCancelable(true)
+                .show();
     }
 
     private void deleteAccount() {
@@ -64,18 +74,9 @@ public class DeleteAccountActivity extends AppCompatActivity {
             progressDialog.setMessage("Deleting user account");
             progressDialog.show();
 
-            String myUid = firebaseUser.getUid();
+            // Step 1: Delete profile image from Firebase Storage
+            deleteProfileImage();
 
-            firebaseUser.delete()
-                    .addOnSuccessListener(unused -> {
-                        Log.d(TAG, "Account deleted successfully");
-                        deleteUserAds(myUid);
-                    })
-                    .addOnFailureListener(e -> {
-                        Log.e(TAG, "Failed to delete account", e);
-                        progressDialog.dismiss();
-                        Utils.toast(DeleteAccountActivity.this, e.getMessage());
-                    });
         } catch (Exception e) {
             Log.e(TAG, "Error in deleteAccount: ", e);
             progressDialog.dismiss();
@@ -83,31 +84,68 @@ public class DeleteAccountActivity extends AppCompatActivity {
         }
     }
 
-    private void deleteUserAds(String myUid) {
-        try {
-            Log.d(TAG, "Deleting user ads for UID: " + myUid);
-            progressDialog.setMessage("Deleting user ads");
-            DatabaseReference refUserAds = FirebaseDatabase.getInstance().getReference("Ads");
+    // New method to delete profile image from Firebase Storage
+    private void deleteProfileImage() {
+        String myUid = firebaseUser.getUid();
+        DatabaseReference refUsers = FirebaseDatabase.getInstance().getReference("Users").child(myUid);
 
-            refUserAds.orderByChild("uid").equalTo(myUid).addListenerForSingleValueEvent(new ValueEventListener() {
+        refUsers.child("profileImageUrl").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String profileImageUrl = snapshot.getValue(String.class);
+                if (profileImageUrl != null) {
+                    // Delete the image from Firebase Storage
+                    StorageReference profileImageRef = FirebaseStorage.getInstance().getReferenceFromUrl(profileImageUrl);
+                    profileImageRef.delete()
+                            .addOnSuccessListener(unused -> {
+                                Log.d(TAG, "Profile image deleted successfully");
+                                deleteUserProduct(myUid); // Move to delete user products after profile image deletion
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.e(TAG, "Failed to delete profile image", e);
+                                progressDialog.dismiss();
+                                Utils.toast(DeleteAccountActivity.this, e.getMessage());
+                            });
+                } else {
+                    // No profile image to delete, continue to delete user products
+                    deleteUserProduct(myUid);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, "Failed to get profile image URL", error.toException());
+                progressDialog.dismiss();
+                Utils.toast(DeleteAccountActivity.this, error.getMessage());
+            }
+        });
+    }
+
+    private void deleteUserProduct(String myUid) {
+        try {
+            Log.d(TAG, "Deleting user product for UID: " + myUid);
+            progressDialog.setMessage("Deleting user product");
+            DatabaseReference refUserProduct = FirebaseDatabase.getInstance().getReference("Product");
+
+            refUserProduct.orderByChild("uid").equalTo(myUid).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         Log.d(TAG, "Removing ad: " + ds.getKey());
                         ds.getRef().removeValue();
                     }
-                    deleteUserData(myUid); // Call next step after ads are deleted
+                    deleteUserData(myUid); // Call next step after product are deleted
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Log.e(TAG, "Error deleting ads: ", error.toException());
+                    Log.e(TAG, "Error deleting product: ", error.toException());
                     progressDialog.dismiss();
                     Utils.toast(DeleteAccountActivity.this, error.getMessage());
                 }
             });
         } catch (Exception e) {
-            Log.e(TAG, "Error in deleteUserAds: ", e);
+            Log.e(TAG, "Error in deleteUserProduct: ", e);
             progressDialog.dismiss();
             Utils.toast(this, "An unexpected error occurred: " + e.getMessage());
         }
@@ -152,3 +190,4 @@ public class DeleteAccountActivity extends AppCompatActivity {
         }
     }
 }
+

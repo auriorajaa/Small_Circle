@@ -1,4 +1,4 @@
-package com.org.smallcircle;
+package com.org.smallcircle.activity;
 
 import android.Manifest;
 import android.app.Activity;
@@ -19,16 +19,12 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.PopupMenu;
 
-import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -44,6 +40,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.org.smallcircle.R;
+import com.org.smallcircle.utils.Utils;
 import com.org.smallcircle.databinding.ActivityProfileEditBinding;
 
 import java.text.SimpleDateFormat;
@@ -339,7 +337,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                     }
                 }
 
-                return false;
+                return true;
             }
         });
     }
@@ -396,6 +394,7 @@ public class ProfileEditActivity extends AppCompatActivity {
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        cameraActivityResultLauncher.launch(intent);
     }
 
     private ActivityResultLauncher<Intent> cameraActivityResultLauncher = registerForActivityResult(
