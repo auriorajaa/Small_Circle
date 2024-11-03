@@ -127,6 +127,14 @@ public class AddProductActivity extends AppCompatActivity {
             }
         });
 
+        binding.locationAutoComplete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddProductActivity.this, LocationPickerActivity.class);
+                locationPickerActivityResultLauncher.launch(intent);
+            }
+        });
+
         binding.submitListingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,6 +142,36 @@ public class AddProductActivity extends AppCompatActivity {
             }
         });
     }
+
+    private ActivityResultLauncher<Intent> locationPickerActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    Log.d(TAG, "onActivityResult: ");
+
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+
+                        if (data != null) {
+                            latitude = data.getDoubleExtra("latitude", 0.0);
+                            longitude = data.getDoubleExtra("longitude", 0.0);
+                            address = data.getStringExtra("address");
+
+                            Log.d(TAG, "onActivityResult: latitude: " + latitude);
+                            Log.d(TAG, "onActivityResult: longitude: " + longitude);
+                            Log.d(TAG, "onActivityResult: address: " + address);
+
+                            binding.locationAutoComplete.setText(address);
+                        }
+
+                    } else {
+                        Log.d(TAG, "onActivityResult: Cancelled");
+                        Utils.toast(AddProductActivity.this, "Cancelled!");
+                    }
+                }
+            }
+    );
 
     private void showSuccessDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -430,7 +468,6 @@ public class AddProductActivity extends AppCompatActivity {
             return null;
         }
     }
-
 
     private void loadImages() {
         Log.d(TAG, "loadImages: ");

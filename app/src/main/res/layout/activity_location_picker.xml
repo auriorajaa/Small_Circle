@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/neutral_white">
+
+    <!-- Toolbar Layout -->
+    <RelativeLayout
+        android:id="@+id/toolbar_relative_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/medium_toolbar_height"
+        android:background="@color/neutral_white"
+        android:elevation="4dp">
+
+        <!-- Back Button -->
+        <ImageButton
+            android:id="@+id/toolbar_back_button"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:src="@drawable/ic_back_gray"
+            android:background="@android:color/transparent"
+            android:contentDescription="Back"
+            android:layout_alignParentStart="true"/>
+
+        <!-- Toolbar Title (Edit Profile) -->
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/neutral_black"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Select Location"
+            android:textSize="@dimen/dimen_small_text_size" />
+    </RelativeLayout>
+
+    <!-- Maps Fragment -->
+    <fragment
+        android:id="@+id/map_fragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_relative_layout"
+        android:layout_above="@id/bottom_container"/>
+
+    <!-- Search Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/search_card"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/medium_button_height"
+        android:layout_below="@id/toolbar_relative_layout"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="8dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:cardBackgroundColor="@color/neutral_white"
+        app:boxStrokeColor="@android:color/black"
+        android:textSize="@dimen/dimen_small_text_size"
+        android:textColor="@color/neutral_black"
+        android:fontFamily="@font/poppins_light">
+
+        <fragment
+            android:id="@+id/autocomplete_fragment"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/medium_button_height"
+            android:textSize="@dimen/dimen_small_text_size"
+            android:textColor="@color/neutral_black"
+            android:fontFamily="@font/poppins_light"
+            />
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Bottom Container -->
+    <LinearLayout
+        android:id="@+id/bottom_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:background="@color/neutral_white"
+        android:elevation="8dp">
+
+        <!-- Selected Location Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:cardBackgroundColor="@color/neutral_white"
+            app:boxStrokeColor="@android:color/black"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Selected Location"
+                    android:textSize="@dimen/dimen_small_text_size"
+                    android:textColor="@color/neutral_black"
+                    android:fontFamily="@font/poppins_light"
+                    android:layout_marginBottom="4dp"/>
+
+                <TextView
+                    android:id="@+id/selected_location_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/dimen_small_text_size"
+                    android:textColor="@color/neutral_black"
+                    android:fontFamily="@font/poppins_regular"
+                    tools:text="Jl. Example Street No. 123, City"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Done Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/done_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Done"
+            android:textSize="@dimen/dimen_small_text_size"
+            android:fontFamily="@font/poppins_regular"
+            android:textAllCaps="false"
+            android:textColor="@color/neutral_white"
+            android:minHeight="@dimen/medium_button_height"
+            android:layout_margin="16dp"
+            app:cornerRadius="8dp"/>
+    </LinearLayout>
+
+    <!-- GPS Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/gps_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_card"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_gps_gray"
+        app:fabSize="mini"
+        app:tint="@color/neutral_black"
+        app:backgroundTint="@color/neutral_white"
+        android:contentDescription="Get current location"/>
+
+</RelativeLayout>

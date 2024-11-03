@@ -307,7 +307,8 @@ public class ProfileEditActivity extends AppCompatActivity {
 
     private void imagePickDialog() {
         Context wrapper = new ContextThemeWrapper(this, R.style.PopupMenuWhiteBackground);
-        PopupMenu popupMenu = new PopupMenu(wrapper, binding.profilePictureContainer);
+
+        PopupMenu popupMenu = new PopupMenu(new ContextThemeWrapper(this, R.style.PopupMenuWhiteBackground), binding.profilePictureContainer);
 
         popupMenu.getMenu().add(Menu.NONE, 1, 1, "Camera");
         popupMenu.getMenu().add(Menu.NONE, 2, 2, "Gallery");
