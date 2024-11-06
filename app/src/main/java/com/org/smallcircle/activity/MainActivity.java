@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showHomeFragment() {
         // Change toolbar title
-        binding.toolbarTitle.setText("Home");
+        binding.toolbarRelativeLayout.setVisibility(View.GONE);
 
         // Show HomeFragment
         HomeFragment fragment = new HomeFragment();
@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showChatFragment() {
+        binding.toolbarRelativeLayout.setVisibility(View.VISIBLE);
         binding.toolbarTitle.setText("Chat");
 
         // Show ChatFragment
@@ -129,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showMyProductFragment() {
+        binding.toolbarRelativeLayout.setVisibility(View.VISIBLE);
         binding.toolbarTitle.setText("My Product");
 
         // Show MyProductFragment
@@ -139,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showMyProfileFragment() {
+        binding.toolbarRelativeLayout.setVisibility(View.VISIBLE);
         binding.toolbarTitle.setText("Profile");
 
         // Show MyProfileFragment

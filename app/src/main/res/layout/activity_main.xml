@@ -12,22 +12,19 @@
     <RelativeLayout
         android:id="@+id/toolbar_relative_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/medium_toolbar_height"
-        android:background="@color/neutral_white"
-        android:elevation="4dp">
+        android:layout_height="72dp"
+        android:background="@color/neutral_white">
 
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:padding="16dp"
             android:textColor="@color/neutral_black"
-            android:fontFamily="@font/poppins_regular"
-            android:text="Home"
-            android:textSize="@dimen/dimen_small_text_size" />
+            android:fontFamily="@font/poppins_bold"
+            android:text="Small Circle"
+            android:textSize="26dp" />
     </RelativeLayout>
-
-
 
     <FrameLayout
             android:id="@+id/fragment_frame_layout"

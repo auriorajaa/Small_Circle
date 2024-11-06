@@ -20,27 +20,17 @@ public class Utils {
     public static final String PRODUCT_STATUS_SOLD = "SOLD";
 
     public static final String[] categories = {
-            "Electronics",
-            "Mobiles",
-            "Vehicles",
-            "Property",
+            "Electronic & Computers",
+            "Mobile Devices",
+            "Vehicles & Parts",
             "Fashion & Beauty",
             "Home & Furniture",
-            "Books, Sports & Hobbies",
-            "Toys & Baby Products",
-            "Groceries",
-            "Pets & Pet Care",
+            "Sports & Hobbies",
+            "Toys & Baby",
+            "Pet & Pet Care",
             "Health & Wellness",
-            "Jobs",
-            "Services",
-            "Education & Training",
-            "Agriculture & Gardening",
-            "Machinery & Equipment",
-            "Handmade & Crafts",
-            "Collectibles & Antiques",
-            "Industrial Supplies",
             "Events & Tickets",
-            "Others"
+            "Others & Miscellaneous"
     };
 
     public static final String[] condition = {
@@ -52,7 +42,21 @@ public class Utils {
             "Refurbished",
             "Reconditioned",
             "Open Box",
-            "For Parts or Not Working"
+            "For Parts"
+    };
+
+    public static final int[] categoryIcons = {
+            R.drawable.ic_electronic_new,
+            R.drawable.ic_phone_new,
+            R.drawable.ic_car_new,
+            R.drawable.ic_beauty_new,
+            R.drawable.ic_furniture_new,
+            R.drawable.ic_hobbies_new,
+            R.drawable.ic_baby_new,
+            R.drawable.ic_pet_new,
+            R.drawable.ic_health_new,
+            R.drawable.ic_ticket_new,
+            R.drawable.ic_misc_new
     };
 
     public static void toast(Context context, String message) {

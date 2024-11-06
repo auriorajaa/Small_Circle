@@ -1,4 +1,4 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:paddingHorizontal="16dp">
 
             <!-- Profile Image and Verification Button within FrameLayout -->
             <FrameLayout
@@ -89,7 +89,8 @@
                         android:src="@drawable/ic_verified_blue"
                         android:layout_marginBottom="2dp"
                         android:visibility="gone"
-                        android:baselineAlignBottom="true"/>
+                        android:baselineAlignBottom="true"
+                        app:tint="@color/neutral_black" />
                 </LinearLayout>
 
 
@@ -287,4 +288,4 @@
                 android:layout_marginBottom="12dp"/>
         </LinearLayout>
     </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

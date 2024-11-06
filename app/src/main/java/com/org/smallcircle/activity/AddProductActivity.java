@@ -33,15 +33,12 @@ import androidx.appcompat.view.menu.MenuBuilder;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.internal.TextWatcherAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.org.smallcircle.R;
 import com.org.smallcircle.adapter.AdapterImagePicked;
 import com.org.smallcircle.databinding.ActivityAddProductBinding;
@@ -55,7 +52,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class AddProductActivity extends AppCompatActivity {
@@ -74,6 +70,7 @@ public class AddProductActivity extends AppCompatActivity {
     private String category = "";
     private String condition = "";
     private String address = "";
+    private String price = "";
     private String title = "";
     private String description = "";
     private double latitude = 0;
@@ -95,7 +92,7 @@ public class AddProductActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        ArrayAdapter<String> adapterCategories = new ArrayAdapter<>(this, R.layout.row_category, Utils.categories);
+        ArrayAdapter<String> adapterCategories = new ArrayAdapter<>(this, R.layout.row_category_auto_complete, Utils.categories);
         binding.categoryAutoComplete.setAdapter(adapterCategories);
 
         ArrayAdapter<String> adapterCondition = new ArrayAdapter<>(this, R.layout.row_condition, Utils.condition);
@@ -229,6 +226,7 @@ public class AddProductActivity extends AppCompatActivity {
         category = binding.categoryAutoComplete.getText().toString().trim();
         condition = binding.conditionAutoComplete.getText().toString().trim();
         address = binding.locationAutoComplete.getText().toString().trim();
+        price = binding.priceEditText.getText().toString().trim();
         title = binding.titleEditText.getText().toString().trim();
         description = binding.descriptionEditText.getText().toString().trim();
 
@@ -244,6 +242,10 @@ public class AddProductActivity extends AppCompatActivity {
         }
         if (condition.isEmpty()) {
             Utils.setErrorState(binding.conditionInputLayout, "Please choose product condition!");
+            isValid = false;
+        }
+        if (price.isEmpty()) {
+            Utils.setErrorState(binding.conditionInputLayout, "Please enter price product!");
             isValid = false;
         }
         if (title.isEmpty()) {
@@ -280,6 +282,7 @@ public class AddProductActivity extends AppCompatActivity {
         hashMap.put("brand", "" + brand);
         hashMap.put("category", "" + category);
         hashMap.put("condition", "" + condition);
+        hashMap.put("price", "" + price);
         hashMap.put("address", "" + address);
         hashMap.put("title", "" + title);
         hashMap.put("description", "" + description);
@@ -371,10 +374,9 @@ public class AddProductActivity extends AppCompatActivity {
 
                                     // Create image data
                                     HashMap<String, Object> imageData = new HashMap<>();
-                                    imageData.put("id", imageName);
+                                    imageData.put("id", modelImagePicked.getId());
                                     imageData.put("imageUrl", uploadedImageUrl.toString());
                                     imageData.put("timestamp", System.currentTimeMillis());
-                                    imageData.put("index", index); // Add index for ordering
 
                                     // Add to the all images map
                                     allImagesMap.put(imageName, imageData);

@@ -189,7 +189,7 @@ public class MyProfileFragment extends Fragment {
                                 binding.verifyAccount.setVisibility(View.GONE);
 
                                 binding.accountStatusText.setText("Verified");
-                                binding.accountStatusText.setTextColor(Color.parseColor("#01a4ec"));
+                                binding.accountStatusText.setTextColor(Color.parseColor("#FF000000"));
                                 binding.verifiedIcon.setVisibility(View.VISIBLE);
                             } else {
                                 binding.verifyAccount.setVisibility(View.VISIBLE);
@@ -202,7 +202,7 @@ public class MyProfileFragment extends Fragment {
                             binding.verifyAccount.setVisibility(View.GONE);
 
                             binding.accountStatusText.setText("Verified");
-                            binding.accountStatusText.setTextColor(Color.parseColor("#01a4ec"));
+                            binding.accountStatusText.setTextColor(Color.parseColor("#FF000000"));
                             binding.verifiedIcon.setVisibility(View.VISIBLE);
                         }
 

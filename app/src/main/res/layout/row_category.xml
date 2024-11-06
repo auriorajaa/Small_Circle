@@ -1,15 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Category"
-    android:textSize="@dimen/dimen_small_text_size"
-    android:fontFamily="@font/poppins_regular"
-    android:padding="16dp"
-    style="?attr/textAppearanceSubtitle1"
-    android:ellipsize="end"
-    android:background="@color/neutral_white"
-    android:maxLines="1"
-    android:drawableEnd="@drawable/ic_next_gray">
+    android:orientation="vertical"
+    android:layout_marginRight="4dp"
+    android:background="@color/neutral_white">
 
-</TextView>
+    <!-- Circle Background for Icon -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        app:cardCornerRadius="8dp"
+        android:layout_marginBottom="6dp"
+        app:cardBackgroundColor="@color/neutral_white"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@android:color/black"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        android:backgroundTint="@color/neutral_white">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/categoryIcon"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_gps_gray"/>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Category Name -->
+    <TextView
+        android:id="@+id/categoryName"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:textSize="10sp"
+        android:fontFamily="@font/poppins_light"
+        android:textColor="@color/neutral_black"
+        android:text="Product Category"
+        android:gravity="center"
+        android:maxLines="2"
+        android:ellipsize="end"/>
+</LinearLayout>
