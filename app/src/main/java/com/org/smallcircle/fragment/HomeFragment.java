@@ -21,17 +21,14 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.org.smallcircle.R;
-import com.org.smallcircle.activity.LocationPickerActivity;
+import com.org.smallcircle.location.LocationPickerActivity;
 import com.org.smallcircle.adapter.AdapterCategory;
 import com.org.smallcircle.adapter.AdapterProduct;
 import com.org.smallcircle.databinding.FragmentHomeBinding;

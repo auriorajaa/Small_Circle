@@ -13,12 +13,13 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.org.smallcircle.R;
+import com.org.smallcircle.auth.LoginOptionsActivity;
 import com.org.smallcircle.utils.Utils;
 import com.org.smallcircle.databinding.ActivityMainBinding;
 import com.org.smallcircle.fragment.ChatFragment;
 import com.org.smallcircle.fragment.HomeFragment;
 import com.org.smallcircle.fragment.MyProductFragment;
-import com.org.smallcircle.fragment.MyProfileFragment;
+import com.org.smallcircle.profile.MyProfileFragment;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -102,7 +103,10 @@ public class MainActivity extends AppCompatActivity {
         binding.createAdsFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, AddProductActivity.class));
+                Intent intent = new Intent(MainActivity.this, AddProductActivity.class);
+                intent.putExtra("isEditMode", false);
+
+                startActivity(intent);
             }
         });
     }

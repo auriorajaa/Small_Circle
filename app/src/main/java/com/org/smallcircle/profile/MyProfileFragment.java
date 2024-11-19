@@ -1,4 +1,4 @@
-package com.org.smallcircle.fragment;
+package com.org.smallcircle.profile;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -36,10 +36,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.org.smallcircle.activity.ChangePasswordActivity;
-import com.org.smallcircle.activity.DeleteAccountActivity;
 import com.org.smallcircle.activity.MainActivity;
-import com.org.smallcircle.activity.ProfileEditActivity;
 import com.org.smallcircle.R;
 import com.org.smallcircle.utils.Utils;
 import com.org.smallcircle.databinding.FragmentMyProfileBinding;

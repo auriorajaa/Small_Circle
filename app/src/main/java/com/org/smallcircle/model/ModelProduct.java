@@ -17,9 +17,10 @@ public class ModelProduct {
     private long timestamp;
     private String title;
     private String uid;
+    private boolean favorite;
 
     // Constructor
-    public ModelProduct(String address, String brand, String category, String condition, String description, String id, double latitude, double longitude, String price, String status, long timestamp, String title, String uid) {
+    public ModelProduct(String address, String brand, String category, String condition, String description, String id, double latitude, double longitude, String price, String status, long timestamp, String title, String uid, boolean favorite) {
         this.address = address;
         this.brand = brand;
         this.category = category;
@@ -33,6 +34,7 @@ public class ModelProduct {
         this.timestamp = timestamp;
         this.title = title;
         this.uid = uid;
+        this.favorite = favorite;
     }
 
     @Keep
@@ -141,5 +143,13 @@ public class ModelProduct {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 }

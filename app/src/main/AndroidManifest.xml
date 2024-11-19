@@ -24,37 +24,40 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".activity.LocationPickerActivity"
+            android:name=".activity.ProductDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".location.LocationPickerActivity"
             android:exported="false" />
         <activity
             android:name=".activity.AddProductActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.DeleteAccountActivity"
+            android:name=".profile.DeleteAccountActivity"
             android:exported="false" />
         <activity
             android:name=".activity.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.ChangePasswordActivity"
+            android:name=".profile.ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.ForgotPasswordActivity"
+            android:name=".auth.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.ProfileEditActivity"
+            android:name=".profile.ProfileEditActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.LoginPhoneActivity"
+            android:name=".auth.LoginPhoneActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.RegisterEmailActivity"
+            android:name=".auth.RegisterEmailActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.LoginEmailActivity"
+            android:name=".auth.LoginEmailActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.LoginOptionsActivity"
+            android:name=".auth.LoginOptionsActivity"
             android:exported="false" />
         <activity
             android:name=".activity.SplashActivity"

@@ -24,27 +24,27 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.org.smallcircle.R;
 import com.org.smallcircle.activity.ProductDetailActivity;
-import com.org.smallcircle.databinding.RowProductBinding;
+import com.org.smallcircle.databinding.RowProductHorizontalBinding;
 import com.org.smallcircle.model.ModelProduct;
-import com.org.smallcircle.utils.FilterProduct;
+import com.org.smallcircle.utils.FilterProductHorizontal;
 import com.org.smallcircle.utils.Utils;
 
 import java.util.ArrayList;
 
-public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.HolderProduct> implements Filterable {
+public class AdapterProductHorizontal extends RecyclerView.Adapter<AdapterProductHorizontal.HolderProduct> implements Filterable {
 
     private static final String TAG = "ADAPTER_PRODUCT_TAG";
 
     private Context context;
     public ArrayList<ModelProduct> productArrayList;
     private ArrayList<ModelProduct> filterList;
-    private RowProductBinding binding;
+    private RowProductHorizontalBinding binding;
 
     private FirebaseAuth firebaseAuth;
 
-    private FilterProduct filter;
+    private FilterProductHorizontal filter;
 
-    public AdapterProduct(Context context, ArrayList<ModelProduct> productArrayList) {
+    public AdapterProductHorizontal(Context context, ArrayList<ModelProduct> productArrayList) {
         this.context = context;
         this.productArrayList = productArrayList;
         this.filterList = productArrayList;
@@ -55,7 +55,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.HolderPr
     @NonNull
     @Override
     public HolderProduct onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding = RowProductBinding.inflate(LayoutInflater.from(context), parent, false);
+        binding = RowProductHorizontalBinding.inflate(LayoutInflater.from(context), parent, false);
         return new HolderProduct(binding.getRoot());
     }
 
@@ -68,6 +68,8 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.HolderPr
         String condition = modelProduct.getCondition();
         String address = modelProduct.getAddress();
         String category = modelProduct.getCategory();
+        long timestamp = modelProduct.getTimestamp();
+        String formattedDate = Utils.formatTimestampDate(timestamp);
 
         loadProductFirstImage(modelProduct, holder);
 
@@ -78,8 +80,9 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.HolderPr
         holder.productTitle.setText(title);
         holder.productPrice.setText("$" + price);
         holder.productCondition.setText(condition);
-        holder.locationText.setText(address);
+//        holder.locationText.setText(address);
         holder.productCategory.setText(category);
+        holder.dateText.setText(formattedDate);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +107,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.HolderPr
         });
     }
 
-    private void checkIsFavorite(ModelProduct modelProduct, AdapterProduct.HolderProduct holder) {
+    private void checkIsFavorite(ModelProduct modelProduct, HolderProduct holder) {
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
         ref.child(firebaseAuth.getUid()).child("Favorites").child(modelProduct.getId())
@@ -179,7 +182,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.HolderPr
     @Override
     public Filter getFilter() {
         if (filter == null) {
-            filter = new FilterProduct(this, filterList);
+            filter = new FilterProductHorizontal(this, filterList);
         }
         return filter;
     }
@@ -187,19 +190,20 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.HolderPr
     class HolderProduct extends RecyclerView.ViewHolder {
 
         ShapeableImageView productImage;
-        TextView locationText, productTitle, productPrice, productCondition, productCategory;
+        TextView locationText, productTitle, productPrice, productCondition, productCategory, dateText;
         ImageButton favoriteButton;
 
         public HolderProduct(@NonNull View itemView) {
             super(itemView);
 
             productImage = binding.productImage;
-            locationText = binding.locationText;
+//            locationText = binding.locationText;
             productTitle = binding.productTitle;
             productPrice = binding.productPrice;
             productCondition = binding.productCondition;
             favoriteButton = binding.favoriteButton;
             productCategory = binding.productCategory;
+            dateText = binding.productDate;
         }
     }
 }

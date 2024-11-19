@@ -1,6 +1,8 @@
 package com.org.smallcircle.utils;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -8,10 +10,18 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.org.smallcircle.R;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class Utils {
@@ -107,4 +117,88 @@ public class Utils {
 
         return date;
     }
+
+    public static void addToFavorite(Context context, String productId) {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+        if (firebaseAuth.getCurrentUser() == null) {
+            Utils.toast(context, "You're not logged in!");
+        } else {
+            long timestamp = Utils.getTimestamp();
+
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("productId", productId);
+            hashMap.put("timestamp", timestamp);
+
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+            ref.child(firebaseAuth.getUid()).child("Favorites").child(productId)
+                    .setValue(hashMap)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Utils.toast(context, "Added to favorites");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Utils.toast(context, "Failed to add to favorites");
+                        }
+                    });
+        }
+    }
+
+    public static void removeFromFavorite(Context context, String productId) {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+        if (firebaseAuth.getCurrentUser() == null) {
+            Utils.toast(context, "You're not logged in!");
+        } else {
+            long timestamp = Utils.getTimestamp();
+
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("productId", productId);
+            hashMap.put("timestamp", timestamp);
+
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+            ref.child(firebaseAuth.getUid()).child("Favorites").child(productId)
+                    .removeValue()
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Utils.toast(context, "Remove from favorites");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Utils.toast(context, "Failed to remove from favorites");
+                        }
+                    });
+        }
+    }
+
+    public static void callIntent(Context context, String phone) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:" + Uri.encode(phone)));
+        context.startActivity(intent);
+    }
+
+    public static void smsIntent(Context context, String phone) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + Uri.encode(phone)));
+        context.startActivity(intent);
+    }
+
+    public static void mapIntent(Context context, double latitude, double longitude) {
+        Uri gmmIntentUri = Uri.parse("http://maps.google.com/maps?daddr=" + latitude + "," + longitude);
+
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+
+        if (mapIntent.resolveActivity(context.getPackageManager()) != null) {
+            context.startActivity(mapIntent);
+        } else {
+            Utils.toast(context, "Google Maps app not found");
+        }
+    }
+
 }

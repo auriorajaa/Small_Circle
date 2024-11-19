@@ -1,4 +1,4 @@
-package com.org.smallcircle.activity;
+package com.org.smallcircle.profile;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.org.smallcircle.activity.SplashActivity;
 import com.org.smallcircle.utils.Utils;
 import com.org.smallcircle.databinding.ActivityDeleteAccountBinding;
 

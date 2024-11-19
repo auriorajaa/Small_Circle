@@ -1,4 +1,4 @@
-package com.org.smallcircle.activity;
+package com.org.smallcircle.auth;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -18,6 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.org.smallcircle.activity.MainActivity;
 import com.org.smallcircle.utils.Utils;
 import com.org.smallcircle.databinding.ActivityRegisterEmailBinding;
 

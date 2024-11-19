@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,9 +14,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.org.smallcircle.R;
 import com.org.smallcircle.databinding.UploadImageCardBinding;
 import com.org.smallcircle.model.ModelImagePicked;
+import com.org.smallcircle.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -29,9 +33,12 @@ public class AdapterImagePicked extends RecyclerView.Adapter<AdapterImagePicked.
     private Context context;
     private ArrayList<ModelImagePicked> imagePickedArrayList;
 
-    public AdapterImagePicked(Context context, ArrayList<ModelImagePicked> imagePickedArrayList) {
+    private String productId;
+
+    public AdapterImagePicked(Context context, ArrayList<ModelImagePicked> imagePickedArrayList, String productId) {
         this.context = context;
         this.imagePickedArrayList = imagePickedArrayList;
+        this.productId = productId;
     }
 
     @NonNull
@@ -45,17 +52,20 @@ public class AdapterImagePicked extends RecyclerView.Adapter<AdapterImagePicked.
 
     @Override
     public void onBindViewHolder(@NonNull HolderImagePicked holder, @SuppressLint("RecyclerView") int position) {
-
         ModelImagePicked model = imagePickedArrayList.get(position);
 
-        Uri imageUri = model.getImageUri();
-        Log.d(TAG, "onBindViewHolder: imageUri: " + imageUri);
-
         try {
-            Glide.with(context)
-                    .load(imageUri)
-                    .placeholder(R.drawable.ic_image_gray)
-                    .into(holder.uploadedImageView);
+            if (model.getFromInternet()) {
+                Glide.with(context)
+                        .load(model.getImageUrl()) // Gunakan imageUrl untuk gambar dari internet
+                        .placeholder(R.drawable.ic_image_gray)
+                        .into(holder.uploadedImageView);
+            } else {
+                Glide.with(context)
+                        .load(model.getImageUri()) // Gunakan imageUri untuk gambar baru
+                        .placeholder(R.drawable.ic_image_gray)
+                        .into(holder.uploadedImageView);
+            }
         } catch (Exception e) {
             Log.e(TAG, "onBindViewHolder: ", e);
         }
@@ -63,10 +73,49 @@ public class AdapterImagePicked extends RecyclerView.Adapter<AdapterImagePicked.
         holder.deleteUploadedImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imagePickedArrayList.remove(model);
-                notifyItemRemoved(position);
+
+                if (model.getFromInternet()) {
+                    deleteImageFromFirebase(model, holder, position);
+                } else {
+                    imagePickedArrayList.remove(model);
+                    notifyItemRemoved(position);
+                }
             }
         });
+    }
+
+    private void deleteImageFromFirebase(ModelImagePicked model, HolderImagePicked holder, int position) {
+        Log.d(TAG, "deleteImageFromFirebase: ");
+
+        String imageId = model.getId();
+
+        Log.d(TAG, "deleteImageFromFirebase: productId: " + productId);
+        Log.d(TAG, "deleteImageFromFirebase: imageId: " + imageId);;
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Product");
+        ref.child(productId).child("Images").child(imageId)
+                .removeValue()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG, "onSuccess: Deleted");
+                        Utils.toast(context, "Image Deleted");
+
+                        try {
+                            imagePickedArrayList.remove(model);
+                            notifyItemRemoved(position);
+                        } catch (Exception e) {
+                            Log.e(TAG, "onSuccess: ", e);
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "onFailure: ", e);
+                        Utils.toast(context, e.getMessage());
+                    }
+                });
     }
 
     @Override

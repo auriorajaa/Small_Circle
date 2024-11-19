@@ -1,4 +1,4 @@
-package com.org.smallcircle.activity;
+package com.org.smallcircle.auth;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;

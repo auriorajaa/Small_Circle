@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/neutral_white"
+    tools:context=".activity.ProductDetailActivity">
+
+    <!-- Custom Toolbar Layout -->
+    <RelativeLayout
+        android:id="@+id/toolbar_relative_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/medium_toolbar_height"
+        android:background="@color/neutral_white"
+        android:elevation="4dp">
+
+        <!-- Back Button -->
+        <ImageButton
+            android:id="@+id/toolbar_back_button"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:src="@drawable/ic_back_gray"
+            android:background="@android:color/transparent"
+            android:contentDescription="Back"
+            android:layout_alignParentStart="true"/>
+
+        <!-- Action Buttons Container -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnEdit"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Edit"
+                android:src="@drawable/ic_edit_white"
+                app:tint="@color/neutral_black" />
+
+            <ImageButton
+                android:id="@+id/btnDelete"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Delete"
+                android:src="@drawable/ic_trash_gray"
+                app:tint="@color/neutral_black" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!-- Scrollable Content -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/medium_toolbar_height"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Image Slider Section -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPagerImages"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
+            <!-- Product Info Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="100dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Price -->
+                    <TextView
+                        android:id="@+id/txtPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semi_bold"
+                        android:textColor="@color/neutral_black"
+                        android:textSize="24sp"
+                        tools:text="Rp 1.500.000" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <ImageButton
+                        android:id="@+id/btnFavorite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingBottom="12dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Favorite"
+                        android:src="@drawable/ic_favorites_white"
+                        app:tint="@color/neutral_black" />
+                </LinearLayout>
+
+                <!-- Title -->
+                <TextView
+                    android:id="@+id/txtTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/neutral_black"
+                    android:textSize="16sp"
+                    tools:text="iPhone 12 Pro Max 256GB" />
+
+                <!-- Category and Date -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtCategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_light"
+                        android:textColor="@color/neutral_grey"
+                        android:textSize="12sp"
+                        tools:text="Electronics" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="•"
+                        android:textColor="@color/neutral_grey" />
+
+                    <TextView
+                        android:id="@+id/txtDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_light"
+                        android:textColor="@color/neutral_grey"
+                        android:textSize="12sp"
+                        tools:text="Posted 2 days ago" />
+                </LinearLayout>
+
+                <!-- Condition -->
+                <TextView
+                    android:id="@+id/txtCondition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:paddingVertical="6dp"
+                    android:text="Condition: Used - Like New"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/neutral_black"
+                    android:textSize="12sp" />
+
+                <!-- Description Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="@color/neutral_white"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:boxCornerRadiusTopStart="8dp"
+                    app:boxCornerRadiusTopEnd="8dp"
+                    app:boxCornerRadiusBottomStart="8dp"
+                    app:boxCornerRadiusBottomEnd="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semi_bold"
+                            android:text="Description"
+                            android:textColor="@color/neutral_black"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/txtDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/poppins_light"
+                            android:textColor="@color/neutral_black"
+                            android:textSize="@dimen/dimen_small_text_size"
+                            tools:text="Lorem ipsum dolor sit amet..." />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Location Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="@color/neutral_white"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:boxCornerRadiusTopStart="8dp"
+                    app:boxCornerRadiusTopEnd="8dp"
+                    app:boxCornerRadiusBottomStart="8dp"
+                    app:boxCornerRadiusBottomEnd="8dp">>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semi_bold"
+                            android:text="Location"
+                            android:textColor="@color/neutral_black"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/txtAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:drawablePadding="8dp"
+                            android:fontFamily="@font/poppins_light"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/neutral_black"
+                            android:textSize="@dimen/dimen_small_text_size"
+                            app:drawableStartCompat="@drawable/ic_location_gray"
+                            android:maxLines="2"
+                            android:ellipsize="end"
+                            tools:text="Jl. Sudirman No. 123, Jakarta" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Seller Info Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/sellerInfoCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="@color/neutral_white"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:boxCornerRadiusTopStart="8dp"
+                    app:boxCornerRadiusTopEnd="8dp"
+                    app:boxCornerRadiusBottomStart="8dp"
+                    app:boxCornerRadiusBottomEnd="8dp">>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:id="@+id/imgSellerProfile"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/ic_person_black"
+                            android:background="@drawable/profile_image_background"
+                            android:scaleType="centerCrop" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/txtSellerName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_semi_bold"
+                                android:textColor="@color/neutral_black"
+                                android:textSize="14sp"
+                                android:text="John Doe" />
+
+                            <TextView
+                                android:id="@+id/txtMemberSince"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_light"
+                                android:textColor="@color/neutral_grey"
+                                android:textSize="@dimen/dimen_small_text_size"
+                                android:text="Member since Jan 2023" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Bottom Action Buttons -->
+    <LinearLayout
+        android:id="@+id/bottomActBtnLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/neutral_white"
+        android:elevation="8dp"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/ownProductText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="@dimen/dimen_small_text_size"
+            android:textColor="@color/neutral_black"
+            android:visibility="gone"
+            android:text="This is your own product"/>
+
+        <LinearLayout
+            android:id="@+id/callSmsMapsLayout"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/medium_button_height"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCall"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                android:padding="0dp"
+                android:layout_gravity="center"
+                app:backgroundTint="@color/neutral_white"
+                app:cornerRadius="8dp"
+                app:icon="@drawable/ic_phone_black"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconTint="@color/neutral_black"
+                app:strokeColor="@color/neutral_grey"
+                app:strokeWidth="0.5dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSms"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                android:padding="0dp"
+                android:layout_gravity="center"
+                app:backgroundTint="@color/neutral_white"
+                app:cornerRadius="8dp"
+                app:icon="@drawable/ic_sms_black"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconTint="@color/neutral_black"
+                app:strokeColor="@color/neutral_grey"
+                app:strokeWidth="0.5dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnMap"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                android:padding="0dp"
+                android:layout_gravity="center"
+                app:backgroundTint="@color/neutral_white"
+                app:cornerRadius="8dp"
+                app:icon="@drawable/ic_location_gray"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconTint="@color/neutral_black"
+                app:strokeColor="@color/neutral_grey"
+                app:strokeWidth="0.5dp" />
+        </LinearLayout>
+
+        <!-- Chat Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnChat"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/medium_button_height"
+            android:layout_weight="1"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Chat Seller"
+            android:textAllCaps="false"
+            android:textSize="@dimen/dimen_small_text_size"
+            app:backgroundTint="@color/neutral_black"
+            app:cornerRadius="8dp"
+            app:icon="@drawable/ic_chat_white"
+            app:iconTint="@color/neutral_white" />
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

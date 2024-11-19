@@ -1,4 +1,4 @@
-package com.org.smallcircle.activity;
+package com.org.smallcircle.profile;
 
 import android.Manifest;
 import android.app.Activity;

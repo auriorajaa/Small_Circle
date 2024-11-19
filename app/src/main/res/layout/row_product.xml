@@ -138,7 +138,6 @@
         android:background="@drawable/circle_background"
         android:backgroundTint="@color/neutral_grey"
         android:src="@drawable/ic_favorites_white_small"
-        app:tint="@color/neutral_white"
         android:contentDescription="Favorite"/>
 
 </com.google.android.material.card.MaterialCardView>

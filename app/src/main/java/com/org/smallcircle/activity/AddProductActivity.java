@@ -35,13 +35,17 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.internal.TextWatcherAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.org.smallcircle.R;
 import com.org.smallcircle.adapter.AdapterImagePicked;
 import com.org.smallcircle.databinding.ActivityAddProductBinding;
+import com.org.smallcircle.location.LocationPickerActivity;
 import com.org.smallcircle.model.ModelImagePicked;
 import com.org.smallcircle.utils.Utils;
 
@@ -79,6 +83,9 @@ public class AddProductActivity extends AppCompatActivity {
     private ArrayList<ModelImagePicked> imagePickedArrayList;
     private AdapterImagePicked adapterImagePicked;
 
+    private boolean isEditMode = false;
+    private String productIdForEditing = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +104,21 @@ public class AddProductActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapterCondition = new ArrayAdapter<>(this, R.layout.row_condition, Utils.condition);
         binding.conditionAutoComplete.setAdapter(adapterCondition);
+
+        Intent intent = getIntent();
+        isEditMode = intent.getBooleanExtra("isEditMode", false);
+        Log.d(TAG, "onCreate: isEditMode: " + isEditMode);
+
+        if (isEditMode) {
+            productIdForEditing = intent.getStringExtra("productId");
+            loadProductDetail();
+
+            binding.toolbarTitle.setText("Edit Product");
+            binding.submitListingButton.setText("Update Product");
+        } else {
+            binding.toolbarTitle.setText("Add Product");
+            binding.submitListingButton.setText("Add Product");
+        }
 
         imagePickedArrayList = new ArrayList<>();
         loadImages();
@@ -262,7 +284,11 @@ public class AddProductActivity extends AppCompatActivity {
         }
 
         if (isValid) {
-            addProduct();
+            if (isEditMode) {
+                updateProduct();
+            } else {
+                addProduct();
+            }
         }
     }
 
@@ -311,6 +337,44 @@ public class AddProductActivity extends AppCompatActivity {
                 });
     }
 
+    private void updateProduct() {
+        Log.d(TAG, "updateProduct: ");
+
+        progressDialog.setMessage("Updating Product");
+        progressDialog.show();
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("brand", "" + brand);
+        hashMap.put("category", "" + category);
+        hashMap.put("condition", "" + condition);
+        hashMap.put("price", "" + price);
+        hashMap.put("address", "" + address);
+        hashMap.put("title", "" + title);
+        hashMap.put("description", "" + description);
+        hashMap.put("latitude", latitude);
+        hashMap.put("longitude", longitude);
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Product");
+        ref.child(productIdForEditing)
+                .updateChildren(hashMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG, "updateProduct: Product details updated successfully");
+
+                        uploadImageStorage(productIdForEditing);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "onFailure: ", e);
+                        progressDialog.dismiss();
+                        Utils.toast(AddProductActivity.this, e.getMessage());
+                    }
+                });
+    }
+
     private void uploadImageStorage(String productId) {
         Log.d(TAG, "uploadImageStorage: Starting upload for " + imagePickedArrayList.size() + " images");
 
@@ -320,102 +384,143 @@ public class AddProductActivity extends AppCompatActivity {
             return;
         }
 
-        // Keep track of successful uploads
         final AtomicInteger successfulUploads = new AtomicInteger(0);
         final AtomicInteger failedUploads = new AtomicInteger(0);
         final int totalImages = imagePickedArrayList.size();
 
-        // Reference to the Images node
         DatabaseReference imagesRef = FirebaseDatabase.getInstance()
                 .getReference("Product")
                 .child(productId)
                 .child("Images");
 
-        // Create a map to store all image data
         HashMap<String, Object> allImagesMap = new HashMap<>();
 
+        // Handle existing images first
+        if (isEditMode) {
+            for (ModelImagePicked existingImage : imagePickedArrayList) {
+                if (existingImage.getFromInternet()) {
+                    HashMap<String, Object> imageData = new HashMap<>();
+                    imageData.put("id", existingImage.getId());
+                    imageData.put("imageUrl", existingImage.getImageUrl()); // Use imageUrl instead of imageUri
+                    imageData.put("timestamp", existingImage.getTimestamp());
+
+                    allImagesMap.put(existingImage.getId(), imageData);
+                    successfulUploads.incrementAndGet();
+                }
+            }
+        }
+
+        // Count new images
+        int newImagesCount = 0;
+        for (ModelImagePicked image : imagePickedArrayList) {
+            if (!image.getFromInternet()) {
+                newImagesCount++;
+            }
+        }
+        final int totalNewImages = newImagesCount;
+
+        // If no new images and we have existing images, update database
+        if (totalNewImages == 0) {
+            if (!allImagesMap.isEmpty()) {
+                imagesRef.setValue(allImagesMap) // Use setValue instead of updateChildren
+                        .addOnSuccessListener(aVoid -> {
+                            Log.d(TAG, "Successfully updated database with existing images");
+                            progressDialog.dismiss();
+                            showSuccessDialog();
+                        })
+                        .addOnFailureListener(e -> {
+                            Log.e(TAG, "Failed to update database with existing images", e);
+                            progressDialog.dismiss();
+                            Utils.toast(AddProductActivity.this, "Failed to update images: " + e.getMessage());
+                        });
+                return;
+            } else {
+                // If no images at all, clear the Images node
+                imagesRef.removeValue()
+                        .addOnSuccessListener(aVoid -> {
+                            Log.d(TAG, "Successfully cleared Images node");
+                            progressDialog.dismiss();
+                            showSuccessDialog();
+                        })
+                        .addOnFailureListener(e -> {
+                            Log.e(TAG, "Failed to clear Images node", e);
+                            progressDialog.dismiss();
+                            Utils.toast(AddProductActivity.this, "Failed to update images: " + e.getMessage());
+                        });
+                return;
+            }
+        }
+
+        // Upload new images
         for (int i = 0; i < imagePickedArrayList.size(); i++) {
             final int index = i;
             ModelImagePicked modelImagePicked = imagePickedArrayList.get(i);
 
-            // Generate nama file yang unik menggunakan timestamp + index
-            String imageName = System.currentTimeMillis() + "_" + index;  // Tambahkan index ke timestamp
-            Uri imageUri = modelImagePicked.getImageUri();
+            if (!modelImagePicked.getFromInternet()) {
+                String imageName = System.currentTimeMillis() + "_" + index;
+                Uri imageUri = modelImagePicked.getImageUri();
 
-            // Compress the image
-            File compressedFile = compressImage(imageUri);
-            if (compressedFile == null) {
-                Log.e(TAG, "Failed to compress image: " + imageUri);
-                failedUploads.incrementAndGet();
-                checkUploadCompletion(productId, totalImages, successfulUploads.get(), failedUploads.get());
-                continue;
+                if (imageUri == null) {
+                    Log.e(TAG, "Image URI is null for index: " + index);
+                    failedUploads.incrementAndGet();
+                    checkUploadCompletion(productId, totalImages, successfulUploads.get(), failedUploads.get());
+                    continue;
+                }
+
+                File compressedFile = compressImage(imageUri);
+                if (compressedFile == null) {
+                    Log.e(TAG, "Failed to compress image: " + imageUri);
+                    failedUploads.incrementAndGet();
+                    checkUploadCompletion(productId, totalImages, successfulUploads.get(), failedUploads.get());
+                    continue;
+                }
+
+                String filePathAndName = "Product/" + imageName;
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference(filePathAndName);
+
+                progressDialog.setMessage("Uploading image " + (index + 1) + " of " + totalNewImages);
+
+                storageReference.putFile(Uri.fromFile(compressedFile))
+                        .addOnProgressListener(snapshot -> {
+                            double progress = (100.0 * snapshot.getBytesTransferred()) / snapshot.getTotalByteCount();
+                            progressDialog.setMessage("Uploading image " + (index + 1) + " of " + totalNewImages +
+                                    "\nProgress: " + (int) progress + "%");
+                        })
+                        .addOnSuccessListener(taskSnapshot -> {
+                            taskSnapshot.getStorage().getDownloadUrl()
+                                    .addOnSuccessListener(uploadedImageUrl -> {
+                                        HashMap<String, Object> imageData = new HashMap<>();
+                                        imageData.put("id", imageName);
+                                        imageData.put("imageUrl", uploadedImageUrl.toString());
+                                        imageData.put("timestamp", System.currentTimeMillis());
+
+                                        allImagesMap.put(imageName, imageData);
+
+                                        int currentSuccess = successfulUploads.incrementAndGet();
+
+                                        if (currentSuccess == (totalNewImages + (isEditMode ? totalImages - totalNewImages : 0))) {
+                                            imagesRef.setValue(allImagesMap)
+                                                    .addOnSuccessListener(aVoid -> {
+                                                        checkUploadCompletion(productId, totalImages, currentSuccess, failedUploads.get());
+                                                    })
+                                                    .addOnFailureListener(e -> {
+                                                        failedUploads.set(totalImages);
+                                                        checkUploadCompletion(productId, totalImages, 0, totalImages);
+                                                    });
+                                        }
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        failedUploads.incrementAndGet();
+                                        checkUploadCompletion(productId, totalImages, successfulUploads.get(), failedUploads.get());
+                                    });
+                        })
+                        .addOnFailureListener(e -> {
+                            failedUploads.incrementAndGet();
+                            checkUploadCompletion(productId, totalImages, successfulUploads.get(), failedUploads.get());
+                        });
             }
-
-            String filePathAndName = "Product/" + imageName;
-            StorageReference storageReference = FirebaseStorage.getInstance().getReference(filePathAndName);
-
-            // Update progress dialog
-            progressDialog.setMessage("Uploading image " + (index + 1) + " of " + totalImages);
-
-            storageReference.putFile(Uri.fromFile(compressedFile))
-                    .addOnProgressListener(snapshot -> {
-                        double progress = (100.0 * snapshot.getBytesTransferred()) / snapshot.getTotalByteCount();
-                        String message = "Uploading image " + (index + 1) + " of " + totalImages +
-                                "\nProgress: " + (int) progress + "%";
-                        progressDialog.setMessage(message);
-                    })
-                    .addOnSuccessListener(taskSnapshot -> {
-                        Log.d(TAG, "Image " + (index + 1) + " uploaded successfully to Storage");
-
-                        // Get download URL and update database
-                        taskSnapshot.getStorage().getDownloadUrl()
-                                .addOnSuccessListener(uploadedImageUrl -> {
-                                    Log.d(TAG, "Got download URL for image " + (index + 1) + ": " + uploadedImageUrl);
-
-                                    // Create image data
-                                    HashMap<String, Object> imageData = new HashMap<>();
-                                    imageData.put("id", modelImagePicked.getId());
-                                    imageData.put("imageUrl", uploadedImageUrl.toString());
-                                    imageData.put("timestamp", System.currentTimeMillis());
-
-                                    // Add to the all images map
-                                    allImagesMap.put(imageName, imageData);
-
-                                    // Increment successful uploads
-                                    int currentSuccess = successfulUploads.incrementAndGet();
-                                    Log.d(TAG, "Added image " + (index + 1) + " to pending updates. Current success: " + currentSuccess);
-
-                                    // If this is the last image, update database with all images at once
-                                    if (currentSuccess == totalImages) {
-                                        Log.d(TAG, "All images processed, updating database with " + allImagesMap.size() + " images");
-
-                                        // Update all images at once
-                                        imagesRef.updateChildren(allImagesMap)
-                                                .addOnSuccessListener(aVoid -> {
-                                                    Log.d(TAG, "Successfully updated database with all images");
-                                                    checkUploadCompletion(productId, totalImages, currentSuccess, failedUploads.get());
-                                                })
-                                                .addOnFailureListener(e -> {
-                                                    Log.e(TAG, "Failed to update database with images", e);
-                                                    failedUploads.set(totalImages);
-                                                    checkUploadCompletion(productId, totalImages, 0, totalImages);
-                                                });
-                                    }
-                                })
-                                .addOnFailureListener(e -> {
-                                    Log.e(TAG, "Failed to get download URL for image " + (index + 1), e);
-                                    failedUploads.incrementAndGet();
-                                    checkUploadCompletion(productId, totalImages, successfulUploads.get(), failedUploads.get());
-                                });
-                    })
-                    .addOnFailureListener(e -> {
-                        Log.e(TAG, "Failed to upload image " + (index + 1), e);
-                        failedUploads.incrementAndGet();
-                        checkUploadCompletion(productId, totalImages, successfulUploads.get(), failedUploads.get());
-                    });
         }
     }
-
     private void checkUploadCompletion(String productId, int totalImages, int successfulUploads, int failedUploads) {
         Log.d(TAG, "checkUploadCompletion: Success=" + successfulUploads +
                 ", Failed=" + failedUploads + ", Total=" + totalImages);
@@ -474,7 +579,7 @@ public class AddProductActivity extends AppCompatActivity {
     private void loadImages() {
         Log.d(TAG, "loadImages: ");
 
-        adapterImagePicked = new AdapterImagePicked(this, imagePickedArrayList);
+        adapterImagePicked = new AdapterImagePicked(this, imagePickedArrayList, productIdForEditing);
         binding.uploadedImagesRecyclerView.setAdapter(adapterImagePicked);
     }
 
@@ -648,5 +753,61 @@ public class AddProductActivity extends AppCompatActivity {
                 }
             }
     );
+
+    private void loadProductDetail() {
+        Log.d(TAG, "loadProductDetail: ");
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Product");
+        ref.child(productIdForEditing)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String brand = "" + snapshot.child("brand").getValue();
+                        String category = "" + snapshot.child("category").getValue();
+                        String condition = "" + snapshot.child("condition").getValue();
+                        String price = "" + snapshot.child("price").getValue();
+                        latitude = (double) snapshot.child("latitude").getValue();
+                        longitude = (double) snapshot.child("longitude").getValue();
+                        address = "" + snapshot.child("address").getValue();
+                        title = "" + snapshot.child("title").getValue();
+                        description = "" + snapshot.child("description").getValue();
+
+                        binding.brandEditText.setText(brand);
+                        binding.categoryAutoComplete.setText(category);
+                        binding.conditionAutoComplete.setText(condition);
+                        binding.priceEditText.setText(price);
+                        binding.locationAutoComplete.setText(address);
+                        binding.titleEditText.setText(title);
+                        binding.descriptionEditText.setText(description);
+
+                        DatabaseReference refImages = snapshot.child("Images").getRef();
+                        refImages.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot ds: snapshot.getChildren()) {
+                                    String id = "" + ds.child("id").getValue();
+                                    String imageUrl = "" + ds.child("imageUrl").getValue();
+
+                                    ModelImagePicked modelImagePicked = new ModelImagePicked(id, null, imageUrl, true);
+                                    imagePickedArrayList.add(modelImagePicked);
+                                }
+
+                                loadImages();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
 
 }
