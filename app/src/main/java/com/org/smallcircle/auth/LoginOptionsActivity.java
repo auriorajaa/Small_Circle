@@ -124,6 +124,10 @@ public class LoginOptionsActivity extends AppCompatActivity {
                         try {
                             GoogleSignInAccount account = task.getResult(ApiException.class);
                             Log.d(TAG, "onActivityResult: Account ID: " + account.getId());
+
+                            // Menampilkan ID Token di Log
+                            Log.d(TAG, "onActivityResult: ID Token: " + account.getIdToken());
+
                             firebaseAuthWithGoogleAccount(account.getIdToken());
                         } catch (ApiException e) {
                             Log.e(TAG, "onActivityResult: ", e);

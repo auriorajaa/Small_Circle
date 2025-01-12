@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.org.smallcircle.R;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
@@ -28,6 +29,9 @@ public class Utils {
 
     public static final String PRODUCT_STATUS_AVAILABLE = "AVAILABLE";
     public static final String PRODUCT_STATUS_SOLD = "SOLD";
+
+    public static final String MESSAGE_TYPE_TEXT = "TEXT";
+    public static final String MESSAGE_TYPE_IMAGE = "IMAGE";
 
     public static final String[] categories = {
             "Electronic & Computers",
@@ -118,6 +122,15 @@ public class Utils {
         return date;
     }
 
+    public static String formatTimestampDateTime(Long timestamp) {
+        Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
+        calendar.setTimeInMillis(timestamp);
+
+        String date = DateFormat.format("dd/MM/yyyy hh:mm:a", calendar).toString();
+
+        return date;
+    }
+
     public static void addToFavorite(Context context, String productId) {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
@@ -176,6 +189,15 @@ public class Utils {
                         }
                     });
         }
+    }
+
+    public static String chatPath(String receiptUid, String yourUid) {
+        String[] arrayUids = new String[]{receiptUid, yourUid};
+        Arrays.sort(arrayUids);
+
+        String chatPath = arrayUids[0] + arrayUids[1];
+
+        return chatPath;
     }
 
     public static void callIntent(Context context, String phone) {

@@ -132,14 +132,18 @@ public class ProductDetailActivity extends AppCompatActivity {
         binding.sellerInfoCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(ProductDetailActivity.this, SellerProfileActivity.class);
+                intent.putExtra("sellerUid", sellerUid);
+                startActivity(intent);
             }
         });
 
         binding.btnChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(ProductDetailActivity.this, ChatActivity.class);
+                intent.putExtra("receiptUid", sellerUid);
+                startActivity(intent);
             }
         });
 
@@ -274,6 +278,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                                 binding.btnCall.setVisibility(View.GONE);
                                 binding.btnSms.setVisibility(View.GONE);
                                 binding.btnMap.setVisibility(View.GONE);
+                                binding.sellerInfoCard.setVisibility(View.GONE);
 
                             } else {
                                 binding.btnEdit.setVisibility(View.GONE);
@@ -286,6 +291,8 @@ public class ProductDetailActivity extends AppCompatActivity {
                                 binding.btnCall.setVisibility(View.VISIBLE);
                                 binding.btnSms.setVisibility(View.VISIBLE);
                                 binding.btnMap.setVisibility(View.VISIBLE);
+                                binding.sellerInfoCard.setVisibility(View.VISIBLE);
+
                             }
 
                             binding.txtTitle.setText(title);

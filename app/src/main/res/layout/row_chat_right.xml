@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="8dp"
+    android:gravity="end">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/txtMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_chat_right"
+            android:fontFamily="@font/poppins_regular"
+            android:padding="12dp"
+            android:text="I'm doing great, Thanks!"
+            android:textColor="@color/neutral_black"
+            android:textSize="14sp"
+            android:layout_gravity="end"/>
+
+        <FrameLayout
+            android:id="@+id/cardImage"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imgMessage"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:scaleType="fitEnd"
+                android:src="@drawable/ic_image_gray"/>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/txtTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/poppins_light"
+            android:text="10:30 AM"
+            android:textColor="@color/neutral_grey"
+            android:textSize="12sp"
+            android:layout_gravity="end"/>
+    </LinearLayout>
+</LinearLayout>

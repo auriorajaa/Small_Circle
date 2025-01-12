@@ -5,8 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginRight="4dp"
-    android:background="@color/neutral_white">
+    android:layout_marginRight="4dp">
 
     <!-- Circle Background for Icon -->
     <com.google.android.material.card.MaterialCardView
@@ -14,14 +13,14 @@
         android:layout_height="52dp"
         app:cardCornerRadius="8dp"
         android:layout_marginBottom="6dp"
-        app:cardBackgroundColor="@color/neutral_white"
+        app:cardBackgroundColor="@color/new_white"
+        app:strokeColor="@color/neutral_light_grey"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:boxStrokeColor="@android:color/black"
         app:boxCornerRadiusTopStart="8dp"
         app:boxCornerRadiusTopEnd="8dp"
         app:boxCornerRadiusBottomStart="8dp"
         app:boxCornerRadiusBottomEnd="8dp"
-        android:backgroundTint="@color/neutral_white">
+        android:backgroundTint="@color/new_white">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/categoryIcon"

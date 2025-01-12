@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/neutral_white"
+    tools:context=".activity.SellerProfileActivity">
+
+    <!-- Custom Toolbar Layout -->
+    <RelativeLayout
+        android:id="@+id/toolbar_relative_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/medium_toolbar_height"
+        android:background="@color/neutral_white"
+        android:elevation="4dp">
+
+        <!-- Back Button -->
+        <ImageButton
+            android:id="@+id/toolbar_back_button"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:src="@drawable/ic_back_gray"
+            android:background="@android:color/transparent"
+            android:contentDescription="Back"
+            android:layout_alignParentStart="true"/>
+
+        <!-- Title -->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:text="Seller Profile"-->
+<!--            android:textColor="@color/neutral_black"-->
+<!--            android:textSize="18sp"-->
+<!--            android:fontFamily="@font/poppins_semi_bold"/>-->
+    </RelativeLayout>
+
+    <!-- Scrollable Content -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/medium_toolbar_height"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Profile Header Section -->
+            <LinearLayout
+                android:id="@+id/sellerInfoCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <!-- Profile Image Container -->
+                <FrameLayout
+                    android:layout_width="92dp"
+                    android:layout_height="wrap_content">
+
+                    <!-- Profile Image -->
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/profileImage"
+                        android:layout_width="92dp"
+                        android:layout_height="92dp"
+                        android:src="@drawable/ic_person_black"
+                        app:riv_corner_radius="8dp"
+                        android:background="@drawable/profile_image_background"
+                        android:scaleType="centerCrop"/>
+
+                    <!-- Loading Indicator -->
+                    <ProgressBar
+                        android:id="@+id/loadingSpinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="gone"/>
+                </FrameLayout>
+
+                <!-- Profile Info -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="16dp"
+                    android:layout_gravity="center_vertical">
+
+                    <!-- Name and Verification Status -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/profileName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="John Doe"
+                            android:textSize="18sp"
+                            android:textColor="@color/neutral_black"
+                            android:fontFamily="@font/poppins_semi_bold"/>
+
+                    </LinearLayout>
+
+<!--                    &lt;!&ndash; Account Status Wrapper &ndash;&gt;-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:layout_marginTop="4dp">-->
+
+<!--                        &lt;!&ndash; Account Status Text &ndash;&gt;-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/accountStatusText"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:fontFamily="@font/poppins_semi_bold"-->
+<!--                            android:text="Not Verified"-->
+<!--                            android:textColor="@color/accent_red"-->
+<!--                            android:textSize="@dimen/dimen_small_text_size"/>-->
+
+<!--                        &lt;!&ndash; Verified Icon &ndash;&gt;-->
+<!--                        <ImageView-->
+<!--                            android:id="@+id/verifiedIcon"-->
+<!--                            android:layout_width="14dp"-->
+<!--                            android:layout_height="14dp"-->
+<!--                            android:layout_marginStart="4dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:src="@drawable/ic_verified_blue"-->
+<!--                            android:layout_marginBottom="2dp"-->
+<!--                            android:visibility="gone"-->
+<!--                            android:baselineAlignBottom="true"-->
+<!--                            app:tint="@color/neutral_black" />-->
+<!--                    </LinearLayout>-->
+
+                    <!-- Member Since -->
+                    <TextView
+                        android:id="@+id/memberSinceText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Member since January 2024"
+                        android:textSize="@dimen/dimen_small_text_size"
+                        android:textColor="@color/neutral_grey"
+                        android:fontFamily="@font/poppins_light"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Active Listings Stats -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:cardBackgroundColor="@color/new_white"
+                app:strokeColor="@color/neutral_light_grey">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_store_white"
+                        app:tint="@color/neutral_black"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="Total Product:"
+                        android:textColor="@color/neutral_black"
+                        android:fontFamily="@font/poppins_regular"/>
+
+                    <TextView
+                        android:id="@+id/activeListingsCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="24 items"
+                        android:textColor="@color/neutral_black"
+                        android:fontFamily="@font/poppins_semi_bold"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Products List Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="All Product"
+                android:textSize="16sp"
+                android:textColor="@color/neutral_black"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="16dp"/>
+
+            <!-- RecyclerView for Products -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/productsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/row_product_horizontal"
+                android:layout_marginTop="12dp"
+                android:clipToPadding="false"
+                android:paddingHorizontal="16dp"
+                android:paddingBottom="16dp"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
