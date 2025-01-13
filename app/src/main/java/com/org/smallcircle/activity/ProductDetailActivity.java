@@ -300,7 +300,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                             binding.txtDescription.setText(description);
                             binding.txtPrice.setText("$" + price);
                             binding.txtDate.setText("Posted " + formattedDate);
-                            binding.txtCondition.setText(condition);
+                            binding.txtCondition.setText("Condition: " + condition);
                             binding.txtAddress.setText(address);
 
                             Log.d(TAG, "onDataChange: title: " + title);

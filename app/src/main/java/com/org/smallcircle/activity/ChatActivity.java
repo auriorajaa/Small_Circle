@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
@@ -24,6 +25,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,6 +39,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -44,6 +50,8 @@ import com.org.smallcircle.databinding.ActivityChatBinding;
 import com.org.smallcircle.model.ModelChat;
 import com.org.smallcircle.utils.Utils;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,6 +61,7 @@ public class ChatActivity extends AppCompatActivity {
     private ActivityChatBinding binding;
 
     private String receiptUid = "";
+    private String receiptFcmToken = "";
 
     private static final String TAG = "CHAT_TAG";
 
@@ -61,6 +70,7 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
 
     private String myUid = "";
+    private String myName = "";
     private String chatPath = "";
     private Uri imageUri = null;
 
@@ -86,6 +96,7 @@ public class ChatActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: myUid: " + myUid);
         Log.d(TAG, "onCreate: chatPath: " + chatPath);
 
+        loadMyInfo();
         loadReceiptDetails();
         loadMessages();
 
@@ -111,6 +122,23 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
+    private void loadMyInfo() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child("" + firebaseAuth.getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        myName = "" + snapshot.child("name").getValue();
+                        Log.d(TAG, "onDataChange: myName: " + myName);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
+
     private void loadReceiptDetails() {
         Log.d(TAG, "loadReceiptDetails: ");
 
@@ -122,6 +150,7 @@ public class ChatActivity extends AppCompatActivity {
                         try {
                             String name = "" + snapshot.child("name").getValue();
                             String profileImageUrl = "" + snapshot.child("profileImageUrl").getValue();
+                            receiptFcmToken = "" + snapshot.child("fcmToken").getValue();
 
                             Log.d(TAG, "onDataChange: name: " + name);
                             Log.d(TAG, "onDataChange: profileImageUrl: " + profileImageUrl);
@@ -181,6 +210,10 @@ public class ChatActivity extends AppCompatActivity {
 
                         // Panggil notifyDataSetChanged untuk memberi tahu RecyclerView bahwa data telah diperbarui
                         adapterChat.notifyDataSetChanged();
+
+                        if (chatArrayList.size() > 0) {
+                            binding.recyclerChat.smoothScrollToPosition(chatArrayList.size() - 1);
+                        }
                     }
 
                     @Override

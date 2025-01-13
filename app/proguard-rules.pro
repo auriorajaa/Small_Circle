@@ -22,3 +22,8 @@
     <init>();
     <fields>;
 }
+
+-keep class com.org.smallcircle.model.ModelChats {
+    <init>();
+    <fields>;
+}

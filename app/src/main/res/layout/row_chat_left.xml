@@ -34,7 +34,6 @@
                 android:id="@+id/imgMessage"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:scaleType="fitStart"
                 android:src="@drawable/ic_image_gray"/>
         </FrameLayout>
 

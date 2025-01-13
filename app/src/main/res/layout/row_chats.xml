@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingVertical="12dp"
+    android:background="?attr/selectableItemBackground">
+
+    <!-- Profile Picture -->
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_person_black"
+        app:riv_corner_radius="8dp"
+        android:scaleType="centerCrop" />
+
+
+    <!--    &lt;!&ndash; Online Status Indicator &ndash;&gt;-->
+<!--    <View-->
+<!--        android:id="@+id/onlineStatus"-->
+<!--        android:layout_width="14dp"-->
+<!--        android:layout_height="14dp"-->
+<!--        android:layout_alignEnd="@id/ivProfile"-->
+<!--        android:layout_alignBottom="@id/ivProfile"-->
+<!--        android:background="@drawable/circle_background"-->
+<!--        android:backgroundTint="#4CAF50"/>-->
+
+    <!-- Chat Content Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_toStartOf="@id/tvTime"
+        android:layout_toEndOf="@id/ivProfile"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/neutral_black"
+            android:fontFamily="@font/poppins_bold"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="John Doe"/>
+
+        <TextView
+            android:id="@+id/tvLastMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/neutral_grey"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="14sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="Hey, how are you doing?"/>
+
+    </LinearLayout>
+
+    <!-- Timestamp -->
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_light"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@id/ivProfile"
+        android:textSize="12sp"
+        android:textColor="@color/neutral_grey"
+        android:text="10:30 AM"/>
+
+</RelativeLayout>

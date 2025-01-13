@@ -70,7 +70,7 @@ public class SellerProfileActivity extends AppCompatActivity {
                         String formattedDate = Utils.formatTimestampDate(timestamp);
 
                         binding.profileName.setText(name);
-                        binding.memberSinceText.setText(formattedDate);
+                        binding.memberSinceText.setText("Member since: " + formattedDate);
 
                         try {
                             Glide.with(SellerProfileActivity.this)

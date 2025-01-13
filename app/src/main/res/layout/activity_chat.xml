@@ -39,6 +39,7 @@
                 android:background="@drawable/profile_image_background"
                 android:layout_toEndOf="@id/btnBack"
                 app:riv_corner_radius="8dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/ic_person_black"/>
 
             <!-- Name and Status -->

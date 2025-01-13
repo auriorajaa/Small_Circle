@@ -68,7 +68,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="12dp"
             android:text="Product Title Long Text"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:fontFamily="@font/poppins_bold"
             android:textColor="@color/neutral_black"
             android:maxLines="2"
@@ -82,7 +82,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:text="$19.99"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:fontFamily="@font/poppins_regular"
             android:textColor="@color/neutral_black" />
 

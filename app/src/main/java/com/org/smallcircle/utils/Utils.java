@@ -33,6 +33,8 @@ public class Utils {
     public static final String MESSAGE_TYPE_TEXT = "TEXT";
     public static final String MESSAGE_TYPE_IMAGE = "IMAGE";
 
+    public static final String NOTIFICATION_TYPE_NEW_MESSAGE = "NEW_MESSAGE";
+
     public static final String[] categories = {
             "Electronic & Computers",
             "Mobile Devices",
